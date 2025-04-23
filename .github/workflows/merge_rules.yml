@@ -37,19 +37,23 @@ jobs:
           pip install requests
           # If using requirements.txt in the future: pip install -r requirements.txt
 
-      # Step 4: Run the merge script
-      - name: Run merge script
-        run: python merge_rules.py
+      # Step 4: Create output directory
+      - name: Create output directory
+        run: mkdir -p output # Create the output directory if it doesn't exist
 
-      # Step 5: Commit and push the changes if the merged list was updated
+      # Step 5: Run the merge script
+      - name: Run merge script
+        run: python merge_rules.py # Ensure this script writes to the 'output' directory
+
+      # Step 6: Commit and push the changes if the merged list was updated
       - name: Commit and push if changed
         run: |
           git config --global user.name 'github-actions[bot]' # Set committer name
           git config --global user.email 'github-actions[bot]@users.noreply.github.com' # Set committer email
-          git add dist/merged_rules.list # Stage the generated file (ensure the path is correct)
+          git add output/merged_rules.list # Stage the generated file from the output directory
           # Check if there are changes staged for the specific file
-          if git diff --staged --quiet dist/merged_rules.list; then
-            echo "No changes to commit in dist/merged_rules.list."
+          if git diff --staged --quiet output/merged_rules.list; then # Check the correct path
+            echo "No changes to commit in output/merged_rules.list."
           else
             # Commit only if the specific file has changes
             git commit -m "Update merged rule list (`date -u`)" # Commit message with timestamp
