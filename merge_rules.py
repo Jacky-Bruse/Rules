@@ -122,13 +122,28 @@ def process_source_file(source_file: Path):
     # Define output file path, using the same name but with .list extension
     output_file = OUTPUT_DIR / f"{source_file.stem}.list"
     
-    # Read URLs from the source file
-    urls = set()
+    # Read contents from the source file
+    urls = []
+    direct_rules = set()
     try:
         with open(source_file, 'r', encoding='utf-8') as f:
-            # Read URLs, strip whitespace, ignore comments and empty lines
-            urls = {line.strip() for line in f if line.strip() and not line.startswith('#')}
-            logging.info(f"Read {len(urls)} unique URLs from {source_file.name}")
+            for line in f:
+                line = line.strip()
+                # Skip empty lines and comments
+                if not line or line.startswith('#'):
+                    continue
+                
+                # Check if the line is a URL or a direct rule
+                if line.startswith(('http://', 'https://')):
+                    urls.append(line)  # Add as URL to be downloaded
+                else:
+                    # Add as direct rule (if it appears valid)
+                    if '.' in line or ':' in line:
+                        direct_rules.add(line)
+                    else:
+                        logging.warning(f"Skipping potentially invalid rule: {line}")
+            
+            logging.info(f"Read {len(urls)} URLs and {len(direct_rules)} direct rules from {source_file.name}")
     except FileNotFoundError:
         logging.error(f"Source file not found: {source_file}. Skipping.")
         return
@@ -136,30 +151,33 @@ def process_source_file(source_file: Path):
         logging.error(f"Error reading source file {source_file}: {e}")
         return
     
-    if not urls:
-        logging.warning(f"No valid URLs found in {source_file.name}. Skipping.")
+    if not urls and not direct_rules:
+        logging.warning(f"No valid URLs or rules found in {source_file.name}. Skipping.")
         return
     
     # Download and process rules from each URL
-    all_rules = set()
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        # Submit download tasks
-        future_to_url = {executor.submit(download_content, url): url for url in urls}
-        
-        # Process completed tasks as they finish
-        for future in as_completed(future_to_url):
-            url = future_to_url[future]
-            try:
-                rules_from_url = future.result()
-                # Perform basic validation
-                valid_rules = {rule for rule in rules_from_url if '.' in rule or ':' in rule} # Simple check for dot or colon (IPv6)
-                invalid_count = len(rules_from_url) - len(valid_rules)
-                if invalid_count > 0:
-                    logging.debug(f"Filtered out {invalid_count} potentially invalid rules (no '.' or ':') from {url}.")
-                all_rules.update(valid_rules)
-            except Exception as e:
-                # Catch errors during result processing
-                logging.error(f"Error processing result for {url}: {e}")
+    all_rules = direct_rules.copy()  # Start with direct rules
+    
+    if urls:
+        logging.info(f"Downloading rules from {len(urls)} URLs for {source_file.name}")
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+            # Submit download tasks
+            future_to_url = {executor.submit(download_content, url): url for url in urls}
+            
+            # Process completed tasks as they finish
+            for future in as_completed(future_to_url):
+                url = future_to_url[future]
+                try:
+                    rules_from_url = future.result()
+                    # Perform basic validation
+                    valid_rules = {rule for rule in rules_from_url if '.' in rule or ':' in rule}
+                    invalid_count = len(rules_from_url) - len(valid_rules)
+                    if invalid_count > 0:
+                        logging.debug(f"Filtered out {invalid_count} potentially invalid rules (no '.' or ':') from {url}.")
+                    all_rules.update(valid_rules)
+                except Exception as e:
+                    # Catch errors during result processing
+                    logging.error(f"Error processing result for {url}: {e}")
     
     logging.info(f"Total unique and valid rules collected for {source_file.name}: {len(all_rules)}")
     
