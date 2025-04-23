@@ -4,6 +4,8 @@ import logging
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
+import re
+from collections import defaultdict
 
 # --- Configuration ---
 # Directory containing the source URL lists
@@ -12,6 +14,12 @@ SOURCE_DIR = Path("sources")
 OUTPUT_DIR = Path("output")
 # Name of the final merged file
 OUTPUT_FILENAME = "merged_rules.list"
+# Name of the rule set
+RULE_NAME = "Merged Rules"
+# Author of the rule set
+RULE_AUTHOR = "Jacky-Bruse"
+# Repository URL
+REPO_URL = "https://github.com/Jacky-Bruse/Clash_Rules"
 # Number of concurrent download threads
 MAX_WORKERS = 10
 # Request timeout in seconds
@@ -75,20 +83,53 @@ def download_content(url: str, retries: int = MAX_RETRIES) -> set[str]:
 
     return rules # Return empty set if all retries fail or unexpected error
 
+def categorize_rules(rules: set[str]) -> dict:
+    """Categorize rules by their type (DOMAIN, DOMAIN-SUFFIX, DOMAIN-KEYWORD, IP-CIDR, etc.)."""
+    categorized = defaultdict(list)
+    
+    # Patterns for identifying rule types
+    ip_cidr_pattern = re.compile(r'^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(/\d{1,2})?)$')
+    ipv6_cidr_pattern = re.compile(r'^([0-9a-fA-F:]+(/\d{1,3})?)$')
+    domain_keyword_pattern = re.compile(r'^([a-zA-Z0-9][-a-zA-Z0-9]*[a-zA-Z0-9]\.)+([a-zA-Z]{2,})$')
+    
+    for rule in rules:
+        # Check if the rule already has a prefix
+        if rule.startswith(('DOMAIN:', 'DOMAIN-SUFFIX:', 'DOMAIN-KEYWORD:', 'IP-CIDR:', 'IP-CIDR6:', 'PROCESS-NAME:')):
+            # Extract type and value
+            parts = rule.split(':', 1)
+            if len(parts) == 2:
+                rule_type, rule_value = parts
+                categorized[rule_type].append(rule_value.strip())
+                continue
+        
+        # No prefix, categorize based on patterns
+        if ip_cidr_pattern.match(rule):
+            categorized['IP-CIDR'].append(rule)
+        elif ipv6_cidr_pattern.match(rule) and ':' in rule:
+            categorized['IP-CIDR6'].append(rule)
+        elif rule.startswith('.') or rule.startswith('*.'):
+            # Remove leading dot if present
+            clean_rule = rule[1:] if rule.startswith('.') else rule[2:] if rule.startswith('*.') else rule
+            categorized['DOMAIN-SUFFIX'].append(clean_rule)
+        elif domain_keyword_pattern.match(rule):
+            # Full domain
+            categorized['DOMAIN'].append(rule)
+        else:
+            # Default case - treat as DOMAIN-KEYWORD
+            categorized['DOMAIN-KEYWORD'].append(rule)
+    
+    return categorized
+
 def main():
     """Main function to merge rule lists."""
     start_time = time.time()
     if not SOURCE_DIR.is_dir():
         logging.error(f"Source directory '{SOURCE_DIR}' not found.")
-        # Optionally create it? For now, let's error out.
-        # SOURCE_DIR.mkdir(parents=True, exist_ok=True)
-        # logging.info(f"Created source directory '{SOURCE_DIR}'. Please add source files.")
         return
 
     source_files = list(SOURCE_DIR.glob("*.txt")) # Ensure we only look for .txt files
     if not source_files:
         logging.warning(f"No source files (.txt) found in '{SOURCE_DIR}'. Exiting.")
-        # Create empty output file if no sources? Or just exit? Let's exit.
         return
 
     all_urls = set() # Use set to avoid duplicate URLs from the start
@@ -122,39 +163,50 @@ def main():
             processed_count += 1
             try:
                 rules_from_url = future.result()
-                # Perform basic validation if needed (e.g., check if rule looks like a domain/ip)
-                # This is a very basic check, might need refinement depending on rule format
+                # Perform basic validation if needed
                 valid_rules = {rule for rule in rules_from_url if '.' in rule or ':' in rule} # Simple check for dot or colon (IPv6)
                 invalid_count = len(rules_from_url) - len(valid_rules)
                 if invalid_count > 0:
                     logging.debug(f"Filtered out {invalid_count} potentially invalid rules (no '.' or ':') from {url}.")
                 merged_rules.update(valid_rules)
             except Exception as e:
-                # Catch errors during result processing (though download_content should handle most)
+                # Catch errors during result processing
                 logging.error(f"Error processing result for {url}: {e}")
-            # Optional: Log progress
-            # logging.info(f"Processed {processed_count}/{len(all_urls)} URLs...")
 
     logging.info(f"Total unique and valid rules collected: {len(merged_rules)}")
 
+    # Categorize rules
+    categorized_rules = categorize_rules(merged_rules)
+    
+    # Calculate statistics
+    total_rules = sum(len(rules) for rules in categorized_rules.values())
+    
     # Create output directory if it doesn't exist
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     output_path = OUTPUT_DIR / OUTPUT_FILENAME
     try:
-        # Sort rules before writing for consistency and better diffs
-        sorted_rules = sorted(list(merged_rules))
         with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(f"# Merged Rule List\\n")
-            f.write(f"# Description: Combined list from various sources\\n")
-            f.write(f"# Total rules: {len(sorted_rules)}\\n")
-            f.write(f"# Last updated: {time.strftime('%Y-%m-%d %H:%M:%S %Z')}\\n")
-            # Make the repository URL dynamic or configurable if possible
-            # f.write("# Generated by script: https://github.com/YourUsername/YourRepoName\\n") # Replace with your repo URL
-            f.write("\\n") # Add a blank line after header
-            for rule in sorted_rules:
-                f.write(rule + '\\n')
-        logging.info(f"Successfully merged and wrote {len(sorted_rules)} rules to {output_path}")
+            # Write header
+            f.write(f"# NAME: {RULE_NAME}\\n")
+            f.write(f"# AUTHOR: {RULE_AUTHOR}\\n")
+            f.write(f"# REPO: {REPO_URL}\\n")
+            f.write(f"# UPDATED: {time.strftime('%Y-%m-%d %H:%M:%S')}\\n")
+            
+            # Write statistics for each rule type
+            for rule_type, rules in sorted(categorized_rules.items()):
+                f.write(f"# {rule_type}: {len(rules)}\\n")
+            
+            # Write total count
+            f.write(f"# TOTAL: {total_rules}\\n")
+            f.write("\\n")  # Add a blank line after header
+            
+            # Write rules by category
+            for rule_type, rules in sorted(categorized_rules.items()):
+                for rule in sorted(rules):
+                    f.write(f"{rule_type},{rule}\\n")
+            
+        logging.info(f"Successfully merged and wrote {total_rules} rules to {output_path}")
     except IOError as e:
         logging.error(f"Error writing merged rules to {output_path}: {e}")
     except Exception as e:
