@@ -12,13 +12,8 @@ from collections import defaultdict
 SOURCE_DIR = Path("sources")
 # Directory to output the merged list
 OUTPUT_DIR = Path("output")
-# Name of the final merged file
-OUTPUT_FILENAME = "merged_rules.list"
-# Name of the rule set
-RULE_NAME = "Merged Rules"
-# Author of the rule set
+# Repository information
 RULE_AUTHOR = "Jacky-Bruse"
-# Repository URL
 REPO_URL = "https://github.com/Jacky-Bruse/Clash_Rules"
 # Number of concurrent download threads
 MAX_WORKERS = 10
@@ -68,7 +63,7 @@ def download_content(url: str, retries: int = MAX_RETRIES) -> set[str]:
         except requests.exceptions.RequestException as e:
             attempt += 1
             # Avoid retrying on 4xx client errors (like 404 Not Found)
-            if response.status_code >= 400 and response.status_code < 500:
+            if hasattr(response, 'status_code') and response.status_code >= 400 and response.status_code < 500:
                  logging.error(f"Failed to download {url} due to client error: {e}. Not retrying.")
                  break # Exit retry loop for client errors
             logging.warning(f"Error downloading {url}: {e} (Attempt {attempt}/{retries}). Retrying in {RETRY_DELAY}s...")
@@ -120,101 +115,117 @@ def categorize_rules(rules: set[str]) -> dict:
     
     return categorized
 
-def main():
-    """Main function to merge rule lists."""
-    start_time = time.time()
-    if not SOURCE_DIR.is_dir():
-        logging.error(f"Source directory '{SOURCE_DIR}' not found.")
+def process_source_file(source_file: Path):
+    """Process a single source file and generate corresponding output file."""
+    logging.info(f"Processing source file: {source_file.name}")
+    
+    # Define output file path, using the same name but with .list extension
+    output_file = OUTPUT_DIR / f"{source_file.stem}.list"
+    
+    # Read URLs from the source file
+    urls = set()
+    try:
+        with open(source_file, 'r', encoding='utf-8') as f:
+            # Read URLs, strip whitespace, ignore comments and empty lines
+            urls = {line.strip() for line in f if line.strip() and not line.startswith('#')}
+            logging.info(f"Read {len(urls)} unique URLs from {source_file.name}")
+    except FileNotFoundError:
+        logging.error(f"Source file not found: {source_file}. Skipping.")
         return
-
-    source_files = list(SOURCE_DIR.glob("*.txt")) # Ensure we only look for .txt files
-    if not source_files:
-        logging.warning(f"No source files (.txt) found in '{SOURCE_DIR}'. Exiting.")
+    except Exception as e:
+        logging.error(f"Error reading source file {source_file}: {e}")
         return
-
-    all_urls = set() # Use set to avoid duplicate URLs from the start
-    for file_path in source_files:
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                # Read URLs, strip whitespace, ignore comments and empty lines
-                urls_in_file = {line.strip() for line in f if line.strip() and not line.startswith('#')}
-                all_urls.update(urls_in_file)
-                logging.info(f"Read {len(urls_in_file)} unique URLs from {file_path.name}")
-        except FileNotFoundError:
-             logging.error(f"Source file not found: {file_path}. Skipping.")
-        except Exception as e:
-            logging.error(f"Error reading source file {file_path}: {e}")
-
-    if not all_urls:
-        logging.warning("No valid URLs found in source files after reading. Exiting.")
+    
+    if not urls:
+        logging.warning(f"No valid URLs found in {source_file.name}. Skipping.")
         return
-
-    logging.info(f"Found {len(all_urls)} unique URLs in total. Starting download process with {MAX_WORKERS} workers...")
-
-    merged_rules = set()
+    
+    # Download and process rules from each URL
+    all_rules = set()
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         # Submit download tasks
-        future_to_url = {executor.submit(download_content, url): url for url in all_urls}
-
-        processed_count = 0
+        future_to_url = {executor.submit(download_content, url): url for url in urls}
+        
         # Process completed tasks as they finish
         for future in as_completed(future_to_url):
             url = future_to_url[future]
-            processed_count += 1
             try:
                 rules_from_url = future.result()
-                # Perform basic validation if needed
+                # Perform basic validation
                 valid_rules = {rule for rule in rules_from_url if '.' in rule or ':' in rule} # Simple check for dot or colon (IPv6)
                 invalid_count = len(rules_from_url) - len(valid_rules)
                 if invalid_count > 0:
                     logging.debug(f"Filtered out {invalid_count} potentially invalid rules (no '.' or ':') from {url}.")
-                merged_rules.update(valid_rules)
+                all_rules.update(valid_rules)
             except Exception as e:
                 # Catch errors during result processing
                 logging.error(f"Error processing result for {url}: {e}")
-
-    logging.info(f"Total unique and valid rules collected: {len(merged_rules)}")
-
+    
+    logging.info(f"Total unique and valid rules collected for {source_file.name}: {len(all_rules)}")
+    
+    # Skip writing if no rules were collected
+    if not all_rules:
+        logging.warning(f"No rules collected for {source_file.name}. No output file will be generated.")
+        return
+    
     # Categorize rules
-    categorized_rules = categorize_rules(merged_rules)
+    categorized_rules = categorize_rules(all_rules)
     
     # Calculate statistics
     total_rules = sum(len(rules) for rules in categorized_rules.values())
     
-    # Create output directory if it doesn't exist
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-    output_path = OUTPUT_DIR / OUTPUT_FILENAME
+    # Write the output file
     try:
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_file, 'w', encoding='utf-8') as f:
             # Write header
-            f.write(f"# NAME: {RULE_NAME}\\n")
-            f.write(f"# AUTHOR: {RULE_AUTHOR}\\n")
-            f.write(f"# REPO: {REPO_URL}\\n")
-            f.write(f"# UPDATED: {time.strftime('%Y-%m-%d %H:%M:%S')}\\n")
+            f.write(f"# NAME: {source_file.stem}\n")
+            f.write(f"# AUTHOR: {RULE_AUTHOR}\n")
+            f.write(f"# REPO: {REPO_URL}\n")
+            f.write(f"# UPDATED: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
             
             # Write statistics for each rule type
             for rule_type, rules in sorted(categorized_rules.items()):
-                f.write(f"# {rule_type}: {len(rules)}\\n")
+                f.write(f"# {rule_type}: {len(rules)}\n")
             
             # Write total count
-            f.write(f"# TOTAL: {total_rules}\\n")
-            f.write("\\n")  # Add a blank line after header
+            f.write(f"# TOTAL: {total_rules}\n")
+            f.write("\n")  # Add a blank line after header
             
             # Write rules by category
             for rule_type, rules in sorted(categorized_rules.items()):
                 for rule in sorted(rules):
-                    f.write(f"{rule_type},{rule}\\n")
+                    f.write(f"{rule_type},{rule}\n")
             
-        logging.info(f"Successfully merged and wrote {total_rules} rules to {output_path}")
+        logging.info(f"Successfully merged and wrote {total_rules} rules to {output_file}")
     except IOError as e:
-        logging.error(f"Error writing merged rules to {output_path}: {e}")
+        logging.error(f"Error writing merged rules to {output_file}: {e}")
     except Exception as e:
         logging.error(f"An unexpected error occurred during file writing: {e}")
 
+def main():
+    """Main function to merge rule lists."""
+    start_time = time.time()
+    
+    # Check if source directory exists
+    if not SOURCE_DIR.is_dir():
+        logging.error(f"Source directory '{SOURCE_DIR}' not found.")
+        return
+    
+    # Find all source files
+    source_files = list(SOURCE_DIR.glob("*.txt"))
+    if not source_files:
+        logging.warning(f"No source files (.txt) found in '{SOURCE_DIR}'. Exiting.")
+        return
+    
+    # Create output directory if it doesn't exist
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    
+    # Process each source file separately
+    for source_file in source_files:
+        process_source_file(source_file)
+    
     end_time = time.time()
     logging.info(f"Script finished in {end_time - start_time:.2f} seconds.")
-
 
 if __name__ == "__main__":
     main() 
