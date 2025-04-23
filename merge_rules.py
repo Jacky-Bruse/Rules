@@ -81,6 +81,7 @@ def download_content(url: str, retries: int = MAX_RETRIES) -> set[str]:
 def categorize_rules(rules: set[str]) -> dict:
     """Categorize rules by their type (DOMAIN, DOMAIN-SUFFIX, DOMAIN-KEYWORD, IP-CIDR, etc.)."""
     categorized = defaultdict(list)
+    pre_formatted_rules = []  # 存储已带有前缀的规则
     
     # Patterns for identifying rule types
     ip_cidr_pattern = re.compile(r'^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(/\d{1,2})?)$')
@@ -88,32 +89,32 @@ def categorize_rules(rules: set[str]) -> dict:
     domain_keyword_pattern = re.compile(r'^([a-zA-Z0-9][-a-zA-Z0-9]*[a-zA-Z0-9]\.)+([a-zA-Z]{2,})$')
     
     for rule in rules:
-        # Check if the rule already has a prefix
-        if rule.startswith(('DOMAIN:', 'DOMAIN-SUFFIX:', 'DOMAIN-KEYWORD:', 'IP-CIDR:', 'IP-CIDR6:', 'PROCESS-NAME:')):
-            # Extract type and value
-            parts = rule.split(':', 1)
-            if len(parts) == 2:
-                rule_type, rule_value = parts
-                categorized[rule_type].append(rule_value.strip())
-                continue
-        
-        # No prefix, categorize based on patterns
+        # 检查规则是否已有前缀（支持逗号和冒号两种格式）
+        if any(rule.startswith(prefix) for prefix in [
+            "DOMAIN,", "DOMAIN-SUFFIX,", "DOMAIN-KEYWORD,", "IP-CIDR,", "IP-CIDR6,", "PROCESS-NAME,", 
+            "DOMAIN:", "DOMAIN-SUFFIX:", "DOMAIN-KEYWORD:", "IP-CIDR:", "IP-CIDR6:", "PROCESS-NAME:"
+        ]):
+            # 保存已格式化的规则，稍后直接输出
+            pre_formatted_rules.append(rule)
+            continue
+            
+        # 没有前缀，根据模式分类
         if ip_cidr_pattern.match(rule):
             categorized['IP-CIDR'].append(rule)
         elif ipv6_cidr_pattern.match(rule) and ':' in rule:
             categorized['IP-CIDR6'].append(rule)
         elif rule.startswith('.') or rule.startswith('*.'):
-            # Remove leading dot if present
+            # 移除开头的点
             clean_rule = rule[1:] if rule.startswith('.') else rule[2:] if rule.startswith('*.') else rule
             categorized['DOMAIN-SUFFIX'].append(clean_rule)
         elif domain_keyword_pattern.match(rule):
-            # Full domain
+            # 完整域名
             categorized['DOMAIN'].append(rule)
         else:
-            # Default case - treat as DOMAIN-KEYWORD
+            # 默认作为关键词
             categorized['DOMAIN-KEYWORD'].append(rule)
     
-    return categorized
+    return categorized, pre_formatted_rules
 
 def process_source_file(source_file: Path):
     """Process a single source file and generate corresponding output file."""
@@ -138,7 +139,7 @@ def process_source_file(source_file: Path):
                     urls.append(line)  # Add as URL to be downloaded
                 else:
                     # Add as direct rule (if it appears valid)
-                    if '.' in line or ':' in line:
+                    if '.' in line or ':' in line or ',' in line:
                         direct_rules.add(line)
                     else:
                         logging.warning(f"Skipping potentially invalid rule: {line}")
@@ -187,10 +188,10 @@ def process_source_file(source_file: Path):
         return
     
     # Categorize rules
-    categorized_rules = categorize_rules(all_rules)
+    categorized_rules, pre_formatted_rules = categorize_rules(all_rules)
     
     # Calculate statistics
-    total_rules = sum(len(rules) for rules in categorized_rules.values())
+    total_rules = sum(len(rules) for rules in categorized_rules.values()) + len(pre_formatted_rules)
     
     # Write the output file
     try:
@@ -201,15 +202,29 @@ def process_source_file(source_file: Path):
             f.write(f"# REPO: {REPO_URL}\n")
             f.write(f"# UPDATED: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
             
+            # 统计已格式化规则的类型和数量
+            prefix_counts = {}
+            for rule in pre_formatted_rules:
+                for prefix in ["DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD", "IP-CIDR", "IP-CIDR6", "PROCESS-NAME"]:
+                    if rule.startswith(prefix + ",") or rule.startswith(prefix + ":"):
+                        prefix_counts[prefix] = prefix_counts.get(prefix, 0) + 1
+                        break
+            
             # Write statistics for each rule type
             for rule_type, rules in sorted(categorized_rules.items()):
-                f.write(f"# {rule_type}: {len(rules)}\n")
+                count = len(rules) + prefix_counts.get(rule_type, 0)
+                if count > 0:
+                    f.write(f"# {rule_type}: {count}\n")
             
             # Write total count
             f.write(f"# TOTAL: {total_rules}\n")
             f.write("\n")  # Add a blank line after header
             
-            # Write rules by category
+            # 先写入已格式化的规则，保持原始格式
+            for rule in sorted(pre_formatted_rules):
+                f.write(f"{rule}\n")
+            
+            # 写入需要添加类型前缀的规则
             for rule_type, rules in sorted(categorized_rules.items()):
                 for rule in sorted(rules):
                     f.write(f"{rule_type},{rule}\n")
