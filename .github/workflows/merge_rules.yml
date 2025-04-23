@@ -48,24 +48,31 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]' # Set committer name
           git config --global user.email 'github-actions[bot]@users.noreply.github.com' # Set committer email
-          git add output/merged_rules.list # Stage the generated file from the output directory
-          # Check if there are changes staged for the specific file
-          if git diff --staged --quiet output/merged_rules.list; then # Check the correct path
-            echo "No changes to commit in output/merged_rules.list."
-          else
-            # Commit only if the specific file has changes
-            git commit -m "Update merged rule list (`date -u`)" # Commit message with timestamp
-            # Add retry logic for push in case of transient network issues
-            retry_count=0
-            max_retries=3
-            until git push || [ $retry_count -eq $max_retries ];
-            do
-              retry_count=$((retry_count+1))
-              echo "Push failed. Retrying ($retry_count/$max_retries)..."
-              sleep 5 # Wait 5 seconds before retrying
-            done
-            if [ $retry_count -eq $max_retries ]; then
-              echo "Push failed after $max_retries attempts."
-              exit 1 # Fail the workflow if push fails
+          
+          # Check if the output file exists before trying to add it
+          if [ -f "output/merged_rules.list" ]; then
+            git add output/merged_rules.list # Stage the generated file from the output directory
+            # Check if there are changes staged for the specific file
+            if git diff --staged --quiet output/merged_rules.list; then
+              echo "No changes to commit in output/merged_rules.list."
+            else
+              # Commit only if the specific file has changes
+              git commit -m "Update merged rule list (`date -u`)" # Commit message with timestamp
+              # Add retry logic for push in case of transient network issues
+              retry_count=0
+              max_retries=3
+              until git push || [ $retry_count -eq $max_retries ];
+              do
+                retry_count=$((retry_count+1))
+                echo "Push failed. Retrying ($retry_count/$max_retries)..."
+                sleep 5 # Wait 5 seconds before retrying
+              done
+              if [ $retry_count -eq $max_retries ]; then
+                echo "Push failed after $max_retries attempts."
+                exit 1 # Fail the workflow if push fails
+              fi
             fi
+          else
+            echo "File output/merged_rules.list does not exist. Skipping commit and push."
+            # Don't fail the workflow, just report that the file wasn't found
           fi 
