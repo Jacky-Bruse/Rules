@@ -9,7 +9,7 @@ import time
 # Directory containing the source URL lists
 SOURCE_DIR = Path("sources")
 # Directory to output the merged list
-OUTPUT_DIR = Path("dist")
+OUTPUT_DIR = Path("output")
 # Name of the final merged file
 OUTPUT_FILENAME = "merged_rules.list"
 # Number of concurrent download threads
