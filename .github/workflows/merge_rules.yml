@@ -11,6 +11,10 @@ on:
     branches:
       - main # Or your default branch name (e.g., master)
 
+# Add permissions to allow the workflow to push to the repository
+permissions:
+  contents: write
+
 jobs:
   merge_rules:
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
