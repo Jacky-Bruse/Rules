@@ -53,15 +53,18 @@ jobs:
           git config --global user.name 'github-actions[bot]' # Set committer name
           git config --global user.email 'github-actions[bot]@users.noreply.github.com' # Set committer email
           
-          # Check if the output file exists before trying to add it
-          if [ -f "output/merged_rules.list" ]; then
-            git add output/merged_rules.list # Stage the generated file from the output directory
-            # Check if there are changes staged for the specific file
-            if git diff --staged --quiet output/merged_rules.list; then
-              echo "No changes to commit in output/merged_rules.list."
+          # Check if output directory exists and contains files
+          if [ -d "output" ] && [ "$(ls -A output)" ]; then
+            # Add all files in the output directory
+            git add output/*
+            
+            # Check if there are changes staged for any files
+            if git diff --staged --quiet; then
+              echo "No changes to commit in output directory."
             else
-              # Commit only if the specific file has changes
-              git commit -m "Update merged rule list (`date -u`)" # Commit message with timestamp
+              # Commit if any files have changes
+              git commit -m "Update rule lists (`date -u`)" # Commit message with timestamp
+              
               # Add retry logic for push in case of transient network issues
               retry_count=0
               max_retries=3
@@ -77,6 +80,6 @@ jobs:
               fi
             fi
           else
-            echo "File output/merged_rules.list does not exist. Skipping commit and push."
-            # Don't fail the workflow, just report that the file wasn't found
+            echo "Output directory is empty or doesn't exist. Skipping commit and push."
+            # Don't fail the workflow, just report that no files were found
           fi 
