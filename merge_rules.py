@@ -199,13 +199,13 @@ def process_source_file(source_file: Path):
         logging.warning(f"No rules collected for {source_file.name}. No output file will be generated.")
         return
     
-    # 仅用于统计目的，检测规则类型但不修改规则
+    # 只统计规则类型，不修改规则内容
     rule_types_count = {}
     for rule in all_rules:
         # 提取规则类型（如果有）
         rule_type = None
         for prefix in ["DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD", "IP-CIDR", "IP-CIDR6", 
-                       "USER-AGENT", "IP-ASN", "PROCESS-NAME"]:
+                      "USER-AGENT", "IP-ASN", "PROCESS-NAME"]:
             if rule.startswith(f"{prefix},") or rule.startswith(f"{prefix}:"):
                 rule_type = prefix
                 break
@@ -225,16 +225,16 @@ def process_source_file(source_file: Path):
             f.write(f"# REPO: {REPO_URL}\n")
             f.write(f"# UPDATED: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
             
-            # Write statistics for each rule type
+            # 写入规则类型统计
             for rule_type, count in sorted(rule_types_count.items()):
                 if count > 0:
                     f.write(f"# {rule_type}: {count}\n")
             
-            # Write total count
+            # 写入总数
             f.write(f"# TOTAL: {len(all_rules)}\n")
             f.write("\n")  # Add a blank line after header
             
-            # Write all rules in their original format
+            # 按原始格式写入所有规则
             for rule in sorted(all_rules):
                 f.write(f"{rule}\n")
             
