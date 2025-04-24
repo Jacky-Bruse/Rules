@@ -1,9 +1,10 @@
 # NAME: twitter
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-04-24 11:43:58
-# TOTAL: 31
+# UPDATED: 2025-04-24 12:38:46
+# TOTAL: 32
 
+DOMAIN-KEYWORD,twitter
 DOMAIN-SUFFIX,ads-twitter.com
 DOMAIN-SUFFIX,cms-twdigitalassets.com
 DOMAIN-SUFFIX,periscope.tv
