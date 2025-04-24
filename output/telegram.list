@@ -1,11 +1,13 @@
 # NAME: telegram
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-04-24 11:43:58
-# TOTAL: 41
+# UPDATED: 2025-04-24 12:38:46
+# DOMAIN-KEYWORD: 6
+# TOTAL: 48
 
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
+DOMAIN-KEYWORD,nicegram
 DOMAIN-SUFFIX,cdn-telegram.org
 DOMAIN-SUFFIX,comments.app
 DOMAIN-SUFFIX,contest.com
@@ -43,5 +45,11 @@ IP-CIDR6,2a0a:f280::/29,no-resolve
 PROCESS-NAME,Telegram.exe
 PROCESS-NAME,nekox.messenger
 PROCESS-NAME,org.telegram.messenger
+PROCESS-NAME,telegram-desktop
 PROCESS-NAME,tw.nekomimi.nekogram
 PROCESS-NAME,xyz.nextalone.nagram
+DOMAIN-KEYWORD,IP-ASN,211157,no-resolve
+DOMAIN-KEYWORD,IP-ASN,44907,no-resolve
+DOMAIN-KEYWORD,IP-ASN,59930,no-resolve
+DOMAIN-KEYWORD,IP-ASN,62014,no-resolve
+DOMAIN-KEYWORD,IP-ASN,62041,no-resolve
