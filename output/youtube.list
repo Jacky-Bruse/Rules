@@ -1,7 +1,13 @@
 # NAME: youtube
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-04-24 13:06:05
+# UPDATED: 2025-04-24 13:20:35
+# DOMAIN: 3
+# DOMAIN-KEYWORD: 1
+# DOMAIN-SUFFIX: 179
+# IP-CIDR: 2
+# IP-CIDR6: 1
+# USER-AGENT: 3
 # TOTAL: 189
 
 DOMAIN,music.youtube.com

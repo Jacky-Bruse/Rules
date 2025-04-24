@@ -1,8 +1,12 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-04-24 13:06:05
-# DOMAIN-KEYWORD: 7
+# UPDATED: 2025-04-24 13:20:36
+# DOMAIN: 20
+# DOMAIN-KEYWORD: 6
+# DOMAIN-SUFFIX: 44
+# IP-ASN: 1
+# IP-CIDR: 2
 # TOTAL: 73
 
 DOMAIN,ai.google.dev
@@ -75,6 +79,6 @@ DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,sora.com
 DOMAIN-SUFFIX,stripe.com
 DOMAIN-SUFFIX,turn.livekit.cloud
+IP-ASN,20473,no-resolve
 IP-CIDR,24.199.123.28/32,no-resolve
 IP-CIDR,64.23.132.171/32,no-resolve
-DOMAIN-KEYWORD,IP-ASN,20473,no-resolve
