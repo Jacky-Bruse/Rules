@@ -92,9 +92,15 @@ def categorize_rules(rules: set[str]) -> dict:
         # 检查规则是否已有前缀（支持逗号和冒号两种格式）
         if any(rule.startswith(prefix) for prefix in [
             "DOMAIN,", "DOMAIN-SUFFIX,", "DOMAIN-KEYWORD,", "IP-CIDR,", "IP-CIDR6,", "PROCESS-NAME,", 
-            "DOMAIN:", "DOMAIN-SUFFIX:", "DOMAIN-KEYWORD:", "IP-CIDR:", "IP-CIDR6:", "PROCESS-NAME:"
+            "USER-AGENT,", "DOMAIN:", "DOMAIN-SUFFIX:", "DOMAIN-KEYWORD:", "IP-CIDR:", "IP-CIDR6:", 
+            "PROCESS-NAME:", "USER-AGENT:"
         ]):
             # 保存已格式化的规则，稍后直接输出
+            pre_formatted_rules.append(rule)
+            continue
+            
+        # 检查是否为USER-AGENT规则
+        if rule.startswith("USER-AGENT,") or rule.startswith("USER-AGENT:"):
             pre_formatted_rules.append(rule)
             continue
             
@@ -110,6 +116,10 @@ def categorize_rules(rules: set[str]) -> dict:
         elif domain_keyword_pattern.match(rule):
             # 完整域名
             categorized['DOMAIN'].append(rule)
+        # 检查USER-AGENT规则格式
+        elif rule.lower().startswith("user-agent,"):
+            content = rule[11:]  # 提取USER-AGENT后面的内容
+            categorized['USER-AGENT'].append(content)
         else:
             # 默认作为关键词
             categorized['DOMAIN-KEYWORD'].append(rule)
