@@ -1,0 +1,30 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Clash Rules Project Structure
+
+## 项目概述
+这是一个Clash规则合并工具，用于从多个来源收集和整理网络过滤规则。主要处理不同类型的规则如DOMAIN、DOMAIN-SUFFIX、DOMAIN-KEYWORD、IP-CIDR、USER-AGENT等。
+
+## 核心文件
+- [merge_rules.py](mdc:merge_rules.py) - 主要脚本，负责处理和合并规则
+- 规则来源于[sources](mdc:sources)目录下的.txt文件
+- 合并后的规则输出到[output](mdc:output)目录下的.list文件
+
+## 工作流程
+1. 读取sources目录中的txt文件，获取规则URL或直接规则
+2. 从URL下载规则内容并合并本地直接规则
+3. 对规则进行分类（如IP-CIDR、DOMAIN、USER-AGENT等）
+4. 生成统计信息并将合并的规则写入output目录
+
+## 规则处理
+- 跳过注释行（以#、!、/、;、[开头的行）
+- 保留所有非注释规则（包括DOMAIN-KEYWORD和USER-AGENT规则）
+- 自动分类无前缀的规则到正确的类型
+- 特别处理USER-AGENT规则，确保它们不被错误归类为DOMAIN-KEYWORD
+
+## 注意事项
+- output目录中的文件是自动生成的，不需要手动修改或提交到Git
+- 只需维护sources目录中的规则源和merge_rules.py脚本
