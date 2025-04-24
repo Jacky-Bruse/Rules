@@ -92,8 +92,8 @@ def categorize_rules(rules: set[str]) -> dict:
         # 检查规则是否已有前缀（支持逗号和冒号两种格式）
         if any(rule.startswith(prefix) for prefix in [
             "DOMAIN,", "DOMAIN-SUFFIX,", "DOMAIN-KEYWORD,", "IP-CIDR,", "IP-CIDR6,", "PROCESS-NAME,", 
-            "USER-AGENT,", "DOMAIN:", "DOMAIN-SUFFIX:", "DOMAIN-KEYWORD:", "IP-CIDR:", "IP-CIDR6:", 
-            "PROCESS-NAME:", "USER-AGENT:"
+            "USER-AGENT,", "IP-ASN,", "DOMAIN:", "DOMAIN-SUFFIX:", "DOMAIN-KEYWORD:", "IP-CIDR:", 
+            "IP-CIDR6:", "PROCESS-NAME:", "USER-AGENT:", "IP-ASN:"
         ]):
             # 保存已格式化的规则，稍后直接输出
             pre_formatted_rules.append(rule)
@@ -101,6 +101,11 @@ def categorize_rules(rules: set[str]) -> dict:
             
         # 检查是否为USER-AGENT规则
         if rule.startswith("USER-AGENT,") or rule.startswith("USER-AGENT:"):
+            pre_formatted_rules.append(rule)
+            continue
+            
+        # 检查是否为IP-ASN规则
+        if rule.startswith("IP-ASN,") or rule.startswith("IP-ASN:"):
             pre_formatted_rules.append(rule)
             continue
             
@@ -120,6 +125,10 @@ def categorize_rules(rules: set[str]) -> dict:
         elif rule.lower().startswith("user-agent,"):
             content = rule[11:]  # 提取USER-AGENT后面的内容
             categorized['USER-AGENT'].append(content)
+        # 检查IP-ASN规则格式
+        elif rule.lower().startswith("ip-asn,"):
+            content = rule[7:]  # 提取IP-ASN后面的内容
+            categorized['IP-ASN'].append(content)
         else:
             # 默认作为关键词
             categorized['DOMAIN-KEYWORD'].append(rule)
@@ -183,18 +192,29 @@ def process_source_file(source_file: Path):
                     # Catch errors during result processing
                     logging.error(f"Error processing result for {url}: {e}")
     
-    logging.info(f"Total unique and valid rules collected for {source_file.name}: {len(all_rules)}")
+    logging.info(f"Total unique rules collected for {source_file.name}: {len(all_rules)}")
     
     # Skip writing if no rules were collected
     if not all_rules:
         logging.warning(f"No rules collected for {source_file.name}. No output file will be generated.")
         return
     
-    # Categorize rules
-    categorized_rules, pre_formatted_rules = categorize_rules(all_rules)
-    
-    # Calculate statistics
-    total_rules = sum(len(rules) for rules in categorized_rules.values()) + len(pre_formatted_rules)
+    # 仅用于统计目的，检测规则类型但不修改规则
+    rule_types_count = {}
+    for rule in all_rules:
+        # 提取规则类型（如果有）
+        rule_type = None
+        for prefix in ["DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD", "IP-CIDR", "IP-CIDR6", 
+                       "USER-AGENT", "IP-ASN", "PROCESS-NAME"]:
+            if rule.startswith(f"{prefix},") or rule.startswith(f"{prefix}:"):
+                rule_type = prefix
+                break
+        
+        # 如果找到类型，更新计数
+        if rule_type:
+            rule_types_count[rule_type] = rule_types_count.get(rule_type, 0) + 1
+        else:
+            rule_types_count["OTHER"] = rule_types_count.get("OTHER", 0) + 1
     
     # Write the output file
     try:
@@ -205,34 +225,20 @@ def process_source_file(source_file: Path):
             f.write(f"# REPO: {REPO_URL}\n")
             f.write(f"# UPDATED: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
             
-            # 统计已格式化规则的类型和数量
-            prefix_counts = {}
-            for rule in pre_formatted_rules:
-                for prefix in ["DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD", "IP-CIDR", "IP-CIDR6", "PROCESS-NAME"]:
-                    if rule.startswith(prefix + ",") or rule.startswith(prefix + ":"):
-                        prefix_counts[prefix] = prefix_counts.get(prefix, 0) + 1
-                        break
-            
             # Write statistics for each rule type
-            for rule_type, rules in sorted(categorized_rules.items()):
-                count = len(rules) + prefix_counts.get(rule_type, 0)
+            for rule_type, count in sorted(rule_types_count.items()):
                 if count > 0:
                     f.write(f"# {rule_type}: {count}\n")
             
             # Write total count
-            f.write(f"# TOTAL: {total_rules}\n")
+            f.write(f"# TOTAL: {len(all_rules)}\n")
             f.write("\n")  # Add a blank line after header
             
-            # 先写入已格式化的规则，保持原始格式
-            for rule in sorted(pre_formatted_rules):
+            # Write all rules in their original format
+            for rule in sorted(all_rules):
                 f.write(f"{rule}\n")
             
-            # 写入需要添加类型前缀的规则
-            for rule_type, rules in sorted(categorized_rules.items()):
-                for rule in sorted(rules):
-                    f.write(f"{rule_type},{rule}\n")
-            
-        logging.info(f"Successfully merged and wrote {total_rules} rules to {output_file}")
+        logging.info(f"Successfully merged and wrote {len(all_rules)} rules to {output_file}")
     except IOError as e:
         logging.error(f"Error writing merged rules to {output_file}: {e}")
     except Exception as e:
