@@ -138,11 +138,8 @@ def process_source_file(source_file: Path):
                 if line.startswith(('http://', 'https://')):
                     urls.append(line)  # Add as URL to be downloaded
                 else:
-                    # Add as direct rule (if it appears valid)
-                    if '.' in line or ':' in line or ',' in line:
-                        direct_rules.add(line)
-                    else:
-                        logging.warning(f"Skipping potentially invalid rule: {line}")
+                    # 添加所有非空且非注释的规则
+                    direct_rules.add(line)
             
             logging.info(f"Read {len(urls)} URLs and {len(direct_rules)} direct rules from {source_file.name}")
     except FileNotFoundError:
@@ -170,12 +167,8 @@ def process_source_file(source_file: Path):
                 url = future_to_url[future]
                 try:
                     rules_from_url = future.result()
-                    # Perform basic validation
-                    valid_rules = {rule for rule in rules_from_url if '.' in rule or ':' in rule}
-                    invalid_count = len(rules_from_url) - len(valid_rules)
-                    if invalid_count > 0:
-                        logging.debug(f"Filtered out {invalid_count} potentially invalid rules (no '.' or ':') from {url}.")
-                    all_rules.update(valid_rules)
+                    # 不再进行内容筛选，保留所有规则
+                    all_rules.update(rules_from_url)
                 except Exception as e:
                     # Catch errors during result processing
                     logging.error(f"Error processing result for {url}: {e}")
