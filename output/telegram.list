@@ -1,12 +1,17 @@
 # NAME: telegram
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-04-24 12:38:46
-# DOMAIN-KEYWORD: 6
-# TOTAL: 48
+# UPDATED: 2025-04-24 13:02:48
+# DOMAIN-KEYWORD: 11
+# TOTAL: 53
 
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
+DOMAIN-KEYWORD,IP-ASN,211157,no-resolve
+DOMAIN-KEYWORD,IP-ASN,44907,no-resolve
+DOMAIN-KEYWORD,IP-ASN,59930,no-resolve
+DOMAIN-KEYWORD,IP-ASN,62014,no-resolve
+DOMAIN-KEYWORD,IP-ASN,62041,no-resolve
 DOMAIN-KEYWORD,nicegram
 DOMAIN-SUFFIX,cdn-telegram.org
 DOMAIN-SUFFIX,comments.app
