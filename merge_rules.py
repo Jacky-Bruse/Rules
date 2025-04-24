@@ -5,6 +5,7 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import re
+import shutil
 from collections import defaultdict
 
 # --- Configuration ---
@@ -261,6 +262,15 @@ def main():
     
     # Create output directory if it doesn't exist
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    
+    # 清空output目录中的所有.list文件
+    logging.info("Cleaning output directory...")
+    for file in OUTPUT_DIR.glob("*.list"):
+        try:
+            file.unlink()
+            logging.info(f"Deleted old file: {file}")
+        except Exception as e:
+            logging.error(f"Failed to delete file {file}: {e}")
     
     # Process each source file separately
     for source_file in source_files:
