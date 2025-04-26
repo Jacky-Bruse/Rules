@@ -21,7 +21,15 @@ def download_content(url):
         response = requests.get(url, timeout=REQUEST_TIMEOUT)
         response.raise_for_status() # 如果请求失败则抛出 HTTPError
         response.encoding = response.apparent_encoding # 尝试自动检测编码
-        return response.text
+        content = response.text
+        
+        # 打印内容的前几行用于调试
+        print("      下载的内容预览 (前5行):")
+        preview_lines = content.splitlines()[:5]
+        for i, line in enumerate(preview_lines):
+            print(f"        {i+1}: {line}")
+        
+        return content
     except requests.exceptions.RequestException as e:
         print(f"警告: 下载 {url} 时出错: {e}", file=sys.stderr)
         return None
@@ -37,33 +45,74 @@ def parse_list_content(content):
     return rules
 
 def parse_yaml_content(content):
-    '''解析 .yaml 文件内容，提取 payload 下的规则。'''
+    '''
+    解析 .yaml 文件内容，提取 payload 下的规则。
+    更健壮的实现，能处理各种 YAML 格式变种。
+    '''
     rules = set()
-    in_payload_section = False
-    for line in content.splitlines():
-        stripped_line = line.strip()
-        
-        # 忽略空行、注释行和 payload: 行
-        if not stripped_line or stripped_line.startswith('#') or stripped_line == 'payload:':
-            # 如果找到 payload: 行，标记开始处理规则
-            if stripped_line == 'payload:':
-                in_payload_section = True
-            continue
-
-        if in_payload_section:
-            # 检查是否是规则行（以 '-' 或 '- ' 开头）
-            if stripped_line.startswith('-'):
-                # 移除前缀 '-' 和可能的空格
-                rule = stripped_line[1:].strip()
-                # 确保提取出的规则不是空的
+    lines = content.splitlines()
+    payload_found = False
+    
+    # 首先查找 payload: 行
+    for i, line in enumerate(lines):
+        if line.strip() == 'payload:':
+            payload_found = True
+            print(f"      找到 payload: 在第 {i+1} 行")
+            
+            # 从 payload: 的下一行开始处理
+            for j in range(i + 1, len(lines)):
+                line = lines[j]
+                stripped = line.strip()
+                
+                # 空行或注释行跳过
+                if not stripped or stripped.startswith('#'):
+                    continue
+                
+                # 如果不是以 - 开头，可能 payload 部分已经结束
+                if not stripped.startswith('-'):
+                    print(f"      在第 {j+1} 行离开 payload 部分: '{stripped}'")
+                    break
+                
+                # 移除 - 前缀和多余空格
+                rule = stripped[1:].strip()
+                
+                # 添加非空规则
                 if rule:
+                    print(f"      提取规则: '{rule}'")
                     rules.add(rule)
-            # 如果遇到其他非规则行，认为 payload 结束
-            elif not stripped_line.startswith('-'):
-                # 如果不以连字符开头且不为空，可能 payload 部分已结束
-                in_payload_section = False
-
-    return rules
+            
+            # 找到并处理完 payload 部分后跳出循环
+            break
+    
+    # 如果没有找到正确的 payload 结构或未提取到规则，尝试备用方法
+    if not payload_found or len(rules) == 0:
+        print("      未找到标准 payload 结构或未提取到规则，尝试备用解析方法...")
+        
+        # 尝试查找任何可能的规则行
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            
+            # 跳过空行、注释和 payload: 行
+            if not stripped or stripped.startswith('#') or stripped == 'payload:':
+                continue
+            
+            # 如果行以 - 开头，尝试提取规则
+            if stripped.startswith('-'):
+                rule = stripped[1:].strip()
+                if rule:
+                    print(f"      备用方法提取规则 (行 {i+1}): '{rule}'")
+                    rules.add(rule)
+    
+    # 创建最终的规则列表，确保没有遗漏的前缀
+    cleaned_rules = set()
+    for rule in rules:
+        # 递归移除可能的多重 - 前缀
+        while rule.startswith('-'):
+            print(f"      清理剩余 '-' 前缀: '{rule}' -> '{rule[1:].strip()}'")
+            rule = rule[1:].strip()
+        cleaned_rules.add(rule)
+    
+    return cleaned_rules
 
 def process_source_files(source_dir, output_dir, output_filename):
     '''主处理函数。'''
