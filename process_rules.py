@@ -42,21 +42,26 @@ def parse_yaml_content(content):
     in_payload_section = False
     for line in content.splitlines():
         stripped_line = line.strip()
-
-        if stripped_line == 'payload:':
-            in_payload_section = True
+        
+        # 忽略空行、注释行和 payload: 行
+        if not stripped_line or stripped_line.startswith('#') or stripped_line == 'payload:':
+            # 如果找到 payload: 行，标记开始处理规则
+            if stripped_line == 'payload:':
+                in_payload_section = True
             continue
 
         if in_payload_section:
-            # 严格检查以 '  - ' 开头的行
-            if line.startswith('  - '):
-                rule = line.strip().lstrip('- ')
+            # 检查是否是规则行（以 '-' 或 '- ' 开头）
+            if stripped_line.startswith('-'):
+                # 移除前缀 '-' 和可能的空格
+                rule = stripped_line[1:].strip()
                 # 确保提取出的规则不是空的
                 if rule:
                     rules.add(rule)
-            # 如果遇到非 '  - ' 开头的非空行，可以认为 payload 结束 (可选)
-            # elif stripped_line:
-            #    in_payload_section = False
+            # 如果遇到其他非规则行，认为 payload 结束
+            elif not stripped_line.startswith('-'):
+                # 如果不以连字符开头且不为空，可能 payload 部分已结束
+                in_payload_section = False
 
     return rules
 
