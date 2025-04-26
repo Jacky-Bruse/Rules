@@ -81,11 +81,8 @@ dmypy.json
 
 # IDE specific files
 .idea/
-.cursor/
 
 # OS generated files
 .DS_Store
 Thumbs.db
 
-# Project specific
-/output/ 
