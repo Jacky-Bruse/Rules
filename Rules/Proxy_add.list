@@ -1,0 +1,23 @@
+# NAME: Others
+DOMAIN-SUFFIX,ptchdbits.co
+DOMAIN-SUFFIX,kp.m-team.cc
+DOMAIN-SUFFIX,community.oneplus.com
+DOMAIN-SUFFIX,dataservice.accuweather.com
+DOMAIN-SUFFIX,accuweather.com
+DOMAIN-SUFFIX,lsposed.org
+
+#Google Play规则
+DOMAIN-SUFFIX,xn--ngstr-lra8j.com
+DOMAIN-SUFFIX,googleapis.cn
+DOMAIN-SUFFIX,modules-cloudflare.lsposed.org
+DOMAIN-SUFFIX,api.ipgeolocation.io
+DOMAIN-SUFFIX,ipgeolocation.io
+DOMAIN-SUFFIX,v1.mk
+DOMAIN-SUFFIX,gauss-componentotacostmanual-eu.allawnofs.com
+
+#cash app
+DOMAIN-SUFFIX,cashappapi.com
+DOMAIN-SUFFIX,appsflyersdk.com
+
+
+DOMAIN,aiapi.xixi.day
