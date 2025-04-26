@@ -47,11 +47,23 @@ def download_content(url: str, retries: int = MAX_RETRIES) -> set[str]:
                  if chunk: # filter out keep-alive new chunks
                     content += chunk
 
-            # Process lines after successful download
-            lines = {line.strip() for line in content.splitlines()
-                     if line.strip() and not line.strip().startswith(('#', '!', '/', ';', '['))} # Added more potential comment chars
-            rules.update(lines)
-            logging.info(f"Successfully downloaded and processed {len(lines)} rules from {url}")
+            # 检查是否是 YAML 格式
+            is_yaml = False
+            if url.lower().endswith(('.yaml', '.yml')) or 'payload:' in content:
+                is_yaml = True
+                logging.info(f"Detected YAML format for {url}, applying special processing")
+
+            if is_yaml:
+                # 处理 YAML 格式
+                processed_rules = process_yaml_content(content)
+                rules.update(processed_rules)
+            else:
+                # 处理常规列表格式
+                lines = {line.strip() for line in content.splitlines()
+                         if line.strip() and not line.strip().startswith(('#', '!', '/', ';', '[', 'payload:'))}
+                rules.update(lines)
+            
+            logging.info(f"Successfully downloaded and processed {len(rules)} rules from {url}")
             return rules # Success, exit retry loop
 
         except requests.exceptions.Timeout:
@@ -64,7 +76,7 @@ def download_content(url: str, retries: int = MAX_RETRIES) -> set[str]:
         except requests.exceptions.RequestException as e:
             attempt += 1
             # Avoid retrying on 4xx client errors (like 404 Not Found)
-            if hasattr(response, 'status_code') and response.status_code >= 400 and response.status_code < 500:
+            if hasattr(e, 'response') and e.response is not None and e.response.status_code >= 400 and e.response.status_code < 500:
                  logging.error(f"Failed to download {url} due to client error: {e}. Not retrying.")
                  break # Exit retry loop for client errors
             logging.warning(f"Error downloading {url}: {e} (Attempt {attempt}/{retries}). Retrying in {RETRY_DELAY}s...")
@@ -78,6 +90,76 @@ def download_content(url: str, retries: int = MAX_RETRIES) -> set[str]:
             break # Exit retry loop for non-request errors
 
     return rules # Return empty set if all retries fail or unexpected error
+
+def process_yaml_content(content):
+    """处理 YAML 内容并提取规则。"""
+    rules = set()
+    lines = content.splitlines()
+    payload_found = False
+    
+    # 首先查找 payload: 行
+    for i, line in enumerate(lines):
+        if line.strip() == 'payload:':
+            payload_found = True
+            logging.debug(f"Found payload: at line {i+1}")
+            
+            # 从 payload: 的下一行开始处理
+            for j in range(i + 1, len(lines)):
+                line = lines[j]
+                stripped = line.strip()
+                
+                # 空行或注释行跳过
+                if not stripped or stripped.startswith('#'):
+                    continue
+                
+                # 如果不是以 - 开头，可能 payload 部分已经结束
+                if not stripped.startswith('-'):
+                    logging.debug(f"Leaving payload section at line {j+1}: '{stripped}'")
+                    break
+                
+                # 移除 - 前缀和多余空格
+                rule = stripped[1:].strip()
+                
+                # 添加非空规则
+                if rule:
+                    logging.debug(f"Extracted rule: '{rule}'")
+                    rules.add(rule)
+            
+            # 找到并处理完 payload 部分后跳出循环
+            break
+    
+    # 如果没有找到标准 payload 结构，尝试备用方法
+    if not payload_found or len(rules) == 0:
+        logging.debug("No standard payload structure found or no rules extracted, trying fallback method...")
+        
+        # 遍历所有行
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            
+            # 跳过空行、注释和 payload:
+            if not stripped or stripped.startswith('#') or stripped == 'payload:':
+                continue
+            
+            # 如果行以 - 开头，尝试提取规则
+            if stripped.startswith('-'):
+                rule = stripped[1:].strip()
+                if rule:
+                    logging.debug(f"Fallback method extracted rule (line {i+1}): '{rule}'")
+                    rules.add(rule)
+            # 不以连字符开头的行，可能是普通的规则
+            elif not any(stripped.startswith(prefix) for prefix in ['#', '!', '/', ';', '[', 'payload:']):
+                rules.add(stripped)
+    
+    # 最终清理规则
+    cleaned_rules = set()
+    for rule in rules:
+        # 递归移除可能的多重 - 前缀
+        while rule.startswith('-'):
+            logging.debug(f"Cleaning remaining '-' prefix: '{rule}' -> '{rule[1:].strip()}'")
+            rule = rule[1:].strip()
+        cleaned_rules.add(rule)
+    
+    return cleaned_rules
 
 def categorize_rules(rules: set[str]) -> dict:
     """Categorize rules by their type (DOMAIN, DOMAIN-SUFFIX, DOMAIN-KEYWORD, IP-CIDR, etc.)."""
@@ -235,11 +317,27 @@ def process_source_file(source_file: Path):
             f.write(f"# TOTAL: {len(all_rules)}\n")
             f.write("\n")  # Add a blank line after header
             
+            # 过滤规则，确保没有 payload: 行和重复规则
+            filtered_rules = set()
+            for rule in all_rules:
+                # 跳过 payload: 行
+                if rule.strip() == 'payload:':
+                    logging.info(f"Removing 'payload:' line from final output")
+                    continue
+                
+                # 递归移除任何多余的 - 前缀
+                cleaned_rule = rule
+                while cleaned_rule.startswith('-'):
+                    cleaned_rule = cleaned_rule[1:].strip()
+                
+                # 添加清理后的规则
+                filtered_rules.add(cleaned_rule)
+            
             # 按原始格式写入所有规则
-            for rule in sorted(all_rules):
+            for rule in sorted(filtered_rules):
                 f.write(f"{rule}\n")
             
-        logging.info(f"Successfully merged and wrote {len(all_rules)} rules to {output_file}")
+        logging.info(f"Successfully merged and wrote {len(filtered_rules)} rules to {output_file}")
     except IOError as e:
         logging.error(f"Error writing merged rules to {output_file}: {e}")
     except Exception as e:
