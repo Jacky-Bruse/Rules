@@ -1,15 +1,15 @@
 # NAME: telegram
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-05-11 05:12:52
+# UPDATED: 2025-05-12 05:14:25
 # DOMAIN: 2
 # DOMAIN-KEYWORD: 1
-# DOMAIN-SUFFIX: 22
+# DOMAIN-SUFFIX: 27
 # IP-ASN: 5
 # IP-CIDR: 8
 # IP-CIDR6: 5
 # PROCESS-NAME: 7
-# TOTAL: 50
+# TOTAL: 55
 
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
@@ -17,6 +17,8 @@ DOMAIN-KEYWORD,nicegram
 DOMAIN-SUFFIX,cdn-telegram.org
 DOMAIN-SUFFIX,comments.app
 DOMAIN-SUFFIX,contest.com
+DOMAIN-SUFFIX,fpjs.io
+DOMAIN-SUFFIX,fpnpmcdn.net
 DOMAIN-SUFFIX,graph.org
 DOMAIN-SUFFIX,legra.ph
 DOMAIN-SUFFIX,mbrx.app
@@ -32,10 +34,13 @@ DOMAIN-SUFFIX,telegram.me
 DOMAIN-SUFFIX,telegram.org
 DOMAIN-SUFFIX,telegram.space
 DOMAIN-SUFFIX,telegramdownload.com
+DOMAIN-SUFFIX,telegraph.co.uk
 DOMAIN-SUFFIX,telesco.pe
 DOMAIN-SUFFIX,tg.dev
 DOMAIN-SUFFIX,tx.me
 DOMAIN-SUFFIX,usercontent.dev
+DOMAIN-SUFFIX,walletbot.me
+DOMAIN-SUFFIX,walletteam.org
 IP-ASN,211157,no-resolve
 IP-ASN,44907,no-resolve
 IP-ASN,59930,no-resolve
