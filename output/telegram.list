@@ -1,7 +1,7 @@
 # NAME: telegram
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-07-29 05:23:04
+# UPDATED: 2025-07-29 13:45:26
 # DOMAIN: 2
 # DOMAIN-KEYWORD: 1
 # DOMAIN-SUFFIX: 27
@@ -66,5 +66,3 @@ PROCESS-NAME,org.telegram.messenger
 PROCESS-NAME,telegram-desktop
 PROCESS-NAME,tw.nekomimi.nekogram
 PROCESS-NAME,xyz.nextalone.nagram
-DOMAIN-SUFFIX,cdn1.cdn-telegram.org
-DOMAIN-SUFFIX,cdn-telegram.org
