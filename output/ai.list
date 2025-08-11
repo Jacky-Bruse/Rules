@@ -1,15 +1,16 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-08-10 05:18:34
-# DOMAIN: 20
+# UPDATED: 2025-08-11 05:22:54
+# DOMAIN: 21
 # DOMAIN-KEYWORD: 7
-# DOMAIN-SUFFIX: 51
+# DOMAIN-SUFFIX: 53
 # IP-ASN: 1
 # IP-CIDR: 2
-# TOTAL: 81
+# TOTAL: 84
 
 DOMAIN,ai.google.dev
+DOMAIN,aistudio.google.com
 DOMAIN,alkalimakersuite-pa.clients6.google.com
 DOMAIN,api.githubcopilot.com
 DOMAIN,api.groq.com
@@ -52,6 +53,8 @@ DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,client-api.arkoselabs.com
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 DOMAIN-SUFFIX,copilot.microsoft.com
+DOMAIN-SUFFIX,curosr.com
+DOMAIN-SUFFIX,curosr.sh
 DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deepmind.google
 DOMAIN-SUFFIX,events.statsigapi.net
