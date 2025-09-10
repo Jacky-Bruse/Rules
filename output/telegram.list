@@ -1,15 +1,15 @@
 # NAME: telegram
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-09-09 05:13:29
+# UPDATED: 2025-09-10 05:12:28
 # DOMAIN: 2
 # DOMAIN-KEYWORD: 1
 # DOMAIN-SUFFIX: 27
 # IP-ASN: 5
-# IP-CIDR: 8
+# IP-CIDR: 10
 # IP-CIDR6: 5
 # PROCESS-NAME: 7
-# TOTAL: 55
+# TOTAL: 57
 
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
@@ -47,7 +47,9 @@ IP-ASN,59930,no-resolve
 IP-ASN,62014,no-resolve
 IP-ASN,62041,no-resolve
 IP-CIDR,109.239.140.0/24,no-resolve
+IP-CIDR,139.59.210.98/32,no-resolve
 IP-CIDR,149.154.160.0/20,no-resolve
+IP-CIDR,196.55.216.167/32,no-resolve
 IP-CIDR,5.28.192.0/18,no-resolve
 IP-CIDR,91.108.0.0/16,no-resolve
 IP-CIDR,91.108.16.0/22,no-resolve
