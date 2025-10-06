@@ -6,3 +6,4 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/AI.list
 https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/OpenAi.list
 https://raw.githubusercontent.com/Jacky-Bruse/Rules/refs/heads/main/Rules/AI.list
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Claude/Claude.list
+https://github.com/fmz200/wool_scripts/raw/refs/heads/main/Loon/rule/AI.list
