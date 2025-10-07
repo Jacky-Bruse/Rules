@@ -329,7 +329,16 @@ def process_source_file(source_file: Path):
                 cleaned_rule = rule
                 while cleaned_rule.startswith('-'):
                     cleaned_rule = cleaned_rule[1:].strip()
-                
+
+                # 规范化规则格式：移除所有逗号后的空格
+                # 例如：DOMAIN, example.com -> DOMAIN,example.com
+                #      IP-CIDR, 1.2.3.4/24, no-resolve -> IP-CIDR,1.2.3.4/24,no-resolve
+                cleaned_rule = re.sub(r',\s+', ',', cleaned_rule)
+
+                # 跳过空规则
+                if not cleaned_rule:
+                    continue
+
                 # 添加清理后的规则
                 filtered_rules.add(cleaned_rule)
             
