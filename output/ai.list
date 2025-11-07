@@ -1,15 +1,15 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2025-11-06 05:14:27
-# DOMAIN: 55
+# UPDATED: 2025-11-07 05:14:07
+# DOMAIN: 50
 # DOMAIN-KEYWORD: 7
-# DOMAIN-SUFFIX: 78
+# DOMAIN-SUFFIX: 85
 # IP-ASN: 1
 # IP-CIDR: 3
 # IP-CIDR6: 1
 # OTHER: 2
-# TOTAL: 147
+# TOTAL: 149
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
@@ -22,9 +22,6 @@ DOMAIN,api.githubcopilot.com
 DOMAIN,api.groq.com
 DOMAIN,api.together.xyz
 DOMAIN,api.x.ai
-DOMAIN,apple-relay.apple.com
-DOMAIN,apple-relay.cloudflare.com
-DOMAIN,apple-relay.fastly-edge.com
 DOMAIN,bard.google.com
 DOMAIN,browser-intake-datadoghq.com
 DOMAIN,cdn.usefathom.com
@@ -35,14 +32,12 @@ DOMAIN,console.groq.com
 DOMAIN,console.mistral.ai
 DOMAIN,copilot-proxy.githubusercontent.com
 DOMAIN,copilot.microsoft.com
-DOMAIN,cp4.cloudflare.com
 DOMAIN,deepmind.com
 DOMAIN,deepmind.google
 DOMAIN,geller-pa.googleapis.com
 DOMAIN,gemini.google.com
 DOMAIN,generativeai.google
 DOMAIN,generativelanguage.googleapis.com
-DOMAIN,guzzoni.apple.com
 DOMAIN,host.livekit.cloud
 DOMAIN,imagine.meta.com
 DOMAIN,makersuite.google.com
@@ -71,6 +66,10 @@ DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,anyrouter.top
 DOMAIN-SUFFIX,api.statsig.com
 DOMAIN-SUFFIX,apis.google.com
+DOMAIN-SUFFIX,apple-relay.apple.com,Proxy
+DOMAIN-SUFFIX,apple-relay.cloudflare.com,Proxy
+DOMAIN-SUFFIX,apple-relay.fastly-edge.com,Proxy
+DOMAIN-SUFFIX,apps.mzstatic.com,Proxy
 DOMAIN-SUFFIX,auth0.com
 DOMAIN-SUFFIX,bard.google.com
 DOMAIN-SUFFIX,challenges.cloudflare.com
@@ -82,12 +81,14 @@ DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,client-api.arkoselabs.com
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 DOMAIN-SUFFIX,copilot.microsoft.com
+DOMAIN-SUFFIX,cp4.cloudflare.com,Proxy
 DOMAIN-SUFFIX,cursor.com
 DOMAIN-SUFFIX,cursor.sh
 DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deepmind.google
 DOMAIN-SUFFIX,events.statsigapi.net
 DOMAIN-SUFFIX,featuregates.org
+DOMAIN-SUFFIX,gateway.icloud.com,Proxy
 DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,generativeai.google
 DOMAIN-SUFFIX,generativelanguage.googleapis.com
@@ -95,6 +96,8 @@ DOMAIN-SUFFIX,githubcopilot.com
 DOMAIN-SUFFIX,grazie.ai
 DOMAIN-SUFFIX,grazie.aws.intellij.net
 DOMAIN-SUFFIX,grok.com
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com,Proxy
+DOMAIN-SUFFIX,guzzoni.apple.com,Proxy
 DOMAIN-SUFFIX,host.livekit.cloud
 DOMAIN-SUFFIX,identrust.com
 DOMAIN-SUFFIX,intercom.io
@@ -118,7 +121,6 @@ DOMAIN-SUFFIX,pplx.ai
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 DOMAIN-SUFFIX,segment.io
 DOMAIN-SUFFIX,sentry.io
-DOMAIN-SUFFIX,smoot.apple.com
 DOMAIN-SUFFIX,sora.com
 DOMAIN-SUFFIX,stripe.com
 DOMAIN-SUFFIX,together.xyz
