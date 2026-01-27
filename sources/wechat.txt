@@ -1,2 +1,4 @@
 https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/WeChat/WeChat.list
 https://github.com/ACL4SSR/ACL4SSR/raw/refs/heads/master/Clash/Ruleset/Wechat.list
+https://github.com/Networkzt/Clash/raw/refs/heads/main/WeChat.list
+https://raw.githubusercontent.com/NobyDa/Script/master/Surge/WeChat.list
