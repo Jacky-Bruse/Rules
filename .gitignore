@@ -86,3 +86,5 @@ dmypy.json
 .DS_Store
 Thumbs.db
 
+# Output files (auto-generated)
+output/

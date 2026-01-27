@@ -13,6 +13,9 @@ from collections import defaultdict
 SOURCE_DIR = Path("sources")
 # Directory to output the merged list
 OUTPUT_DIR = Path("output")
+# ASN specific directories
+ASN_SOURCE_DIR = SOURCE_DIR / "ASN"
+ASN_OUTPUT_DIR = OUTPUT_DIR / "ASN"
 # Repository information
 RULE_AUTHOR = "Jacky-Bruse"
 REPO_URL = "https://github.com/Jacky-Bruse/Clash_Rules"
@@ -160,6 +163,157 @@ def process_yaml_content(content):
         cleaned_rules.add(rule)
     
     return cleaned_rules
+
+def process_asn_content(content: str) -> set[str]:
+    """
+    处理 ASN 规则内容：
+    1. 去掉 // 注释
+    2. 去掉 # 注释行
+    3. 添加 ,no-resolve 后缀
+
+    输入格式: IP-ASN,140238 // CHINATELECOM Shaanxi province
+    输出格式: IP-ASN,140238,no-resolve
+    """
+    rules = set()
+    for line in content.splitlines():
+        line = line.strip()
+
+        # 跳过空行和 # 注释行
+        if not line or line.startswith('#'):
+            continue
+
+        # 去掉 // 及其后面的注释
+        if '//' in line:
+            line = line.split('//')[0].strip()
+
+        if not line:
+            continue
+
+        # 如果已有 no-resolve 则保持不变
+        if line.lower().endswith(',no-resolve'):
+            rules.add(line)
+        else:
+            # 添加 ,no-resolve 后缀
+            rules.add(f"{line},no-resolve")
+
+    return rules
+
+def download_asn_content(url: str, retries: int = MAX_RETRIES) -> set[str]:
+    """Downloads ASN content from a URL with retries, applying ASN-specific processing."""
+    rules = set()
+    headers = {'User-Agent': USER_AGENT}
+    attempt = 0
+    while attempt < retries:
+        try:
+            response = requests.get(url, timeout=REQUEST_TIMEOUT, headers=headers, stream=True)
+            response.raise_for_status()
+
+            content = ""
+            for chunk in response.iter_content(chunk_size=8192, decode_unicode=True):
+                if chunk:
+                    content += chunk
+
+            # 使用 ASN 专用处理函数
+            rules = process_asn_content(content)
+
+            logging.info(f"Successfully downloaded and processed {len(rules)} ASN rules from {url}")
+            return rules
+
+        except requests.exceptions.Timeout:
+            attempt += 1
+            logging.warning(f"Timeout downloading {url} (Attempt {attempt}/{retries}). Retrying in {RETRY_DELAY}s...")
+            if attempt < retries:
+                time.sleep(RETRY_DELAY)
+            else:
+                logging.error(f"Failed to download {url} after {retries} attempts (Timeout).")
+        except requests.exceptions.RequestException as e:
+            attempt += 1
+            if hasattr(e, 'response') and e.response is not None and e.response.status_code >= 400 and e.response.status_code < 500:
+                logging.error(f"Failed to download {url} due to client error: {e}. Not retrying.")
+                break
+            logging.warning(f"Error downloading {url}: {e} (Attempt {attempt}/{retries}). Retrying in {RETRY_DELAY}s...")
+            if attempt < retries:
+                time.sleep(RETRY_DELAY)
+            else:
+                logging.error(f"Failed to download {url} after {retries} attempts: {e}")
+        except Exception as e:
+            logging.error(f"An unexpected error occurred while processing {url}: {e}")
+            break
+
+    return rules
+
+def process_asn_source_file(source_file: Path):
+    """Process a single ASN source file and generate corresponding output file."""
+    logging.info(f"Processing ASN source file: {source_file.name}")
+
+    # Define output file path
+    output_file = ASN_OUTPUT_DIR / f"{source_file.stem}.list"
+
+    # Read URLs from the source file
+    urls = []
+    try:
+        with open(source_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                if line.startswith(('http://', 'https://')):
+                    urls.append(line)
+
+            logging.info(f"Read {len(urls)} URLs from ASN source file {source_file.name}")
+    except FileNotFoundError:
+        logging.error(f"ASN source file not found: {source_file}. Skipping.")
+        return
+    except Exception as e:
+        logging.error(f"Error reading ASN source file {source_file}: {e}")
+        return
+
+    if not urls:
+        logging.warning(f"No valid URLs found in {source_file.name}. Skipping.")
+        return
+
+    # Download and process ASN rules from each URL
+    all_rules = set()
+
+    logging.info(f"Downloading ASN rules from {len(urls)} URLs for {source_file.name}")
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        future_to_url = {executor.submit(download_asn_content, url): url for url in urls}
+
+        for future in as_completed(future_to_url):
+            url = future_to_url[future]
+            try:
+                rules_from_url = future.result()
+                all_rules.update(rules_from_url)
+            except Exception as e:
+                logging.error(f"Error processing ASN result for {url}: {e}")
+
+    logging.info(f"Total unique ASN rules collected for {source_file.name}: {len(all_rules)}")
+
+    if not all_rules:
+        logging.warning(f"No ASN rules collected for {source_file.name}. No output file will be generated.")
+        return
+
+    # Write the output file
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            # Write header
+            f.write(f"# NAME: {source_file.stem}\n")
+            f.write(f"# AUTHOR: {RULE_AUTHOR}\n")
+            f.write(f"# REPO: {REPO_URL}\n")
+            f.write(f"# UPDATED: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"# IP-ASN: {len(all_rules)}\n")
+            f.write(f"# TOTAL: {len(all_rules)}\n")
+            f.write("\n")
+
+            # Write sorted rules
+            for rule in sorted(all_rules):
+                f.write(f"{rule}\n")
+
+        logging.info(f"Successfully wrote {len(all_rules)} ASN rules to {output_file}")
+    except IOError as e:
+        logging.error(f"Error writing ASN rules to {output_file}: {e}")
+    except Exception as e:
+        logging.error(f"An unexpected error occurred during ASN file writing: {e}")
 
 def categorize_rules(rules: set[str]) -> dict:
     """Categorize rules by their type (DOMAIN, DOMAIN-SUFFIX, DOMAIN-KEYWORD, IP-CIDR, etc.)."""
@@ -382,7 +536,32 @@ def main():
     # Process each source file separately
     for source_file in source_files:
         process_source_file(source_file)
-    
+
+    # Process ASN folder if it exists
+    if ASN_SOURCE_DIR.is_dir():
+        logging.info(f"Processing ASN source directory: {ASN_SOURCE_DIR}")
+
+        # Create ASN output directory
+        ASN_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+        # Clean ASN output directory
+        for file in ASN_OUTPUT_DIR.glob("*.list"):
+            try:
+                file.unlink()
+                logging.info(f"Deleted old ASN file: {file}")
+            except Exception as e:
+                logging.error(f"Failed to delete ASN file {file}: {e}")
+
+        # Find and process ASN source files
+        asn_source_files = list(ASN_SOURCE_DIR.glob("*.txt"))
+        if asn_source_files:
+            for asn_file in asn_source_files:
+                process_asn_source_file(asn_file)
+        else:
+            logging.warning(f"No ASN source files (.txt) found in '{ASN_SOURCE_DIR}'.")
+    else:
+        logging.info(f"ASN source directory '{ASN_SOURCE_DIR}' not found. Skipping ASN processing.")
+
     end_time = time.time()
     logging.info(f"Script finished in {end_time - start_time:.2f} seconds.")
 
