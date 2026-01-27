@@ -1,3 +1,4 @@
 https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/YouTube.list
 https://github.com/blackmatrix7/ios_rule_script/raw/refs/heads/master/rule/Clash/YouTube/YouTube.list
 https://github.com/blackmatrix7/ios_rule_script/raw/refs/heads/master/rule/Clash/YouTubeMusic/YouTubeMusic.list
+https://github.com/ACL4SSR/ACL4SSR/raw/refs/heads/master/Clash/Ruleset/YouTube.list
