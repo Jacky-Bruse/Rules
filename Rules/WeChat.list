@@ -252,4 +252,4 @@ DOMAIN-SUFFIX,sgshort.wechat.com
 DOMAIN-SUFFIX,emoji.qpic.cn
 DOMAIN-SUFFIX,sgminorshort.wechat.com
 DOMAIN-SUFFIX,dns.wechat.com
-IP-CIDR,43.160.156.0/24
+IP-CIDR,43.160.156.0/24,no-resolve
