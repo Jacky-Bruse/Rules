@@ -1,15 +1,15 @@
 # NAME: wechat
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-01-29 05:38:08
+# UPDATED: 2026-01-29 09:09:21
 # DOMAIN: 15
 # DOMAIN-KEYWORD: 233
-# DOMAIN-SUFFIX: 116
+# DOMAIN-SUFFIX: 118
 # IP-ASN: 1
-# IP-CIDR: 121
+# IP-CIDR: 12
 # IP-CIDR6: 123
 # USER-AGENT: 2
-# TOTAL: 611
+# TOTAL: 504
 
 DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net
 DOMAIN,btrace.qq.com
@@ -306,6 +306,7 @@ DOMAIN-SUFFIX,mlshort.weixin.qq.com
 DOMAIN-SUFFIX,mlsupport.weixin.qq.com
 DOMAIN-SUFFIX,mmsns.qpic.cn
 DOMAIN-SUFFIX,mp.weixin.qq.com
+DOMAIN-SUFFIX,myqcloud.com
 DOMAIN-SUFFIX,nlp.map.qq.com
 DOMAIN-SUFFIX,open.weixin.qq.com
 DOMAIN-SUFFIX,qlogo.cn
@@ -347,6 +348,7 @@ DOMAIN-SUFFIX,szquic.weixin.qq.com
 DOMAIN-SUFFIX,szshort.pay.weixin.qq.com
 DOMAIN-SUFFIX,szshort.weixin.qq.com
 DOMAIN-SUFFIX,szsupport.weixin.qq.com
+DOMAIN-SUFFIX,tencentcs.com
 DOMAIN-SUFFIX,tencentmap.wechat.com
 DOMAIN-SUFFIX,tenpay.com
 DOMAIN-SUFFIX,ue.indoorloc.map.qq.com
@@ -376,127 +378,18 @@ DOMAIN-SUFFIX,wxsnsdythumb.wxs.qq.com
 DOMAIN-SUFFIX,wxsnsdyvip.wxs.qq.com
 DOMAIN-SUFFIX,yun-hl.3g.qq.com
 IP-ASN,132203,no-resolve
-IP-CIDR,101.32.0.0/16,no-resolve
-IP-CIDR,101.32.0.0/20,no-resolve
-IP-CIDR,101.32.102.0/23,no-resolve
-IP-CIDR,101.32.104.0/21,no-resolve
 IP-CIDR,101.32.104.4/32,no-resolve
 IP-CIDR,101.32.104.41/32,no-resolve
 IP-CIDR,101.32.104.56/32,no-resolve
-IP-CIDR,101.32.112.0/23,no-resolve
-IP-CIDR,101.32.112.0/24,no-resolve
-IP-CIDR,101.32.114.0/23,no-resolve
-IP-CIDR,101.32.116.0/23,no-resolve
-IP-CIDR,101.32.118.0/23,no-resolve
 IP-CIDR,101.32.118.25/32,no-resolve
-IP-CIDR,101.32.120.0/23,no-resolve
-IP-CIDR,101.32.122.0/23,no-resolve
-IP-CIDR,101.32.124.0/23,no-resolve
-IP-CIDR,101.32.126.0/23,no-resolve
-IP-CIDR,101.32.128.0/23,no-resolve
-IP-CIDR,101.32.13.0/24,no-resolve
-IP-CIDR,101.32.130.0/23,no-resolve
-IP-CIDR,101.32.132.0/22,no-resolve
-IP-CIDR,101.32.132.0/24,no-resolve
-IP-CIDR,101.32.133.0/22,no-resolve
 IP-CIDR,101.32.133.16/32,no-resolve
 IP-CIDR,101.32.133.209/32,no-resolve
 IP-CIDR,101.32.133.53/32,no-resolve
-IP-CIDR,101.32.136.0/21,no-resolve
-IP-CIDR,101.32.140.0/24,no-resolve
-IP-CIDR,101.32.144.0/20,no-resolve
-IP-CIDR,101.32.16.0/20,no-resolve
-IP-CIDR,101.32.160.0/20,no-resolve
-IP-CIDR,101.32.17.0/24,no-resolve
-IP-CIDR,101.32.176.0/20,no-resolve
-IP-CIDR,101.32.192.0/20,no-resolve
-IP-CIDR,101.32.208.0/20,no-resolve
-IP-CIDR,101.32.224.0/22,no-resolve
-IP-CIDR,101.32.228.0/22,no-resolve
-IP-CIDR,101.32.232.0/22,no-resolve
-IP-CIDR,101.32.236.0/23,no-resolve
-IP-CIDR,101.32.238.0/23,no-resolve
-IP-CIDR,101.32.240.0/20,no-resolve
-IP-CIDR,101.32.32.0/20,no-resolve
-IP-CIDR,101.32.48.0/20,no-resolve
-IP-CIDR,101.32.64.0/20,no-resolve
-IP-CIDR,101.32.78.0/23,no-resolve
-IP-CIDR,101.32.80.0/20,no-resolve
-IP-CIDR,101.32.84.0/24,no-resolve
-IP-CIDR,101.32.85.0/24,no-resolve
-IP-CIDR,101.32.86.0/24,no-resolve
-IP-CIDR,101.32.87.0/24,no-resolve
-IP-CIDR,101.32.88.0/24,no-resolve
-IP-CIDR,101.32.89.0/24,no-resolve
-IP-CIDR,101.32.90.0/24,no-resolve
-IP-CIDR,101.32.91.0/24,no-resolve
-IP-CIDR,101.32.94.0/23,no-resolve
-IP-CIDR,101.32.96.0/20,no-resolve
-IP-CIDR,101.33.0.0/23,no-resolve
-IP-CIDR,101.33.10.0/23,no-resolve
-IP-CIDR,101.33.100.0/22,no-resolve
-IP-CIDR,101.33.104.0/21,no-resolve
-IP-CIDR,101.33.112.0/22,no-resolve
-IP-CIDR,101.33.114.0/24,no-resolve
-IP-CIDR,101.33.116.0/22,no-resolve
-IP-CIDR,101.33.120.0/21,no-resolve
-IP-CIDR,101.33.128.0/22,no-resolve
-IP-CIDR,101.33.132.0/22,no-resolve
-IP-CIDR,101.33.136.0/22,no-resolve
-IP-CIDR,101.33.14.0/24,no-resolve
-IP-CIDR,101.33.140.0/22,no-resolve
-IP-CIDR,101.33.144.0/22,no-resolve
-IP-CIDR,101.33.148.0/22,no-resolve
-IP-CIDR,101.33.15.0/24,no-resolve
-IP-CIDR,101.33.152.0/22,no-resolve
-IP-CIDR,101.33.156.0/22,no-resolve
-IP-CIDR,101.33.160.0/22,no-resolve
-IP-CIDR,101.33.164.0/22,no-resolve
-IP-CIDR,101.33.168.0/22,no-resolve
-IP-CIDR,101.33.17.0/24,no-resolve
-IP-CIDR,101.33.172.0/22,no-resolve
-IP-CIDR,101.33.176.0/22,no-resolve
-IP-CIDR,101.33.18.0/23,no-resolve
-IP-CIDR,101.33.180.0/22,no-resolve
-IP-CIDR,101.33.184.0/22,no-resolve
-IP-CIDR,101.33.188.0/22,no-resolve
-IP-CIDR,101.33.20.0/24,no-resolve
-IP-CIDR,101.33.21.0/24,no-resolve
-IP-CIDR,101.33.26.0/23,no-resolve
-IP-CIDR,101.33.30.0/23,no-resolve
-IP-CIDR,101.33.32.0/21,no-resolve
-IP-CIDR,101.33.4.0/23,no-resolve
-IP-CIDR,101.33.40.0/24,no-resolve
-IP-CIDR,101.33.41.0/24,no-resolve
-IP-CIDR,101.33.42.0/23,no-resolve
-IP-CIDR,101.33.44.0/22,no-resolve
-IP-CIDR,101.33.48.0/22,no-resolve
-IP-CIDR,101.33.52.0/22,no-resolve
-IP-CIDR,101.33.56.0/22,no-resolve
-IP-CIDR,101.33.60.0/22,no-resolve
-IP-CIDR,101.33.64.0/19,no-resolve
-IP-CIDR,101.33.64.0/23,no-resolve
-IP-CIDR,101.33.96.0/22,no-resolve
-IP-CIDR,103.238.16.0/23,no-resolve
-IP-CIDR,103.52.216.0/22,no-resolve
-IP-CIDR,103.52.216.0/23,no-resolve
-IP-CIDR,103.52.218.0/23,no-resolve
-IP-CIDR,103.7.28.0/22,no-resolve
-IP-CIDR,103.7.28.0/24,no-resolve
-IP-CIDR,103.7.29.0/24,no-resolve
-IP-CIDR,103.7.30.0/24,no-resolve
 IP-CIDR,111.30.160.0/20,no-resolve
 IP-CIDR,112.53.11.0/24,no-resolve
 IP-CIDR,112.53.20.0/24,no-resolve
-IP-CIDR,129.226.0.0/16,no-resolve
 IP-CIDR,129.226.107.244/32,no-resolve
-IP-CIDR,129.226.2.0/23,no-resolve
 IP-CIDR,129.226.3.47/32,no-resolve
-IP-CIDR,162.62.163.63/32,no-resolve
-IP-CIDR,43.130.194.0/23,no-resolve
-IP-CIDR,43.156.192.0/18,no-resolve
-IP-CIDR,43.160.156.0/24,no-resolve
-IP-CIDR,43.160.156.23/32,no-resolve
 IP-CIDR6,2402:4E00:1900:1700:0:9554:1AD0:140A/128,no-resolve
 IP-CIDR6,2402:4e00:1020:10fb:0:9466::/112,no-resolve
 IP-CIDR6,2402:4e00:1430:2264:0:9467::/96,no-resolve
