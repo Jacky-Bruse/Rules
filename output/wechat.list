@@ -1,7 +1,7 @@
 # NAME: wechat
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-01-28 15:02:09
+# UPDATED: 2026-01-29 05:38:08
 # DOMAIN: 15
 # DOMAIN-KEYWORD: 233
 # DOMAIN-SUFFIX: 116
@@ -495,7 +495,7 @@ IP-CIDR,129.226.3.47/32,no-resolve
 IP-CIDR,162.62.163.63/32,no-resolve
 IP-CIDR,43.130.194.0/23,no-resolve
 IP-CIDR,43.156.192.0/18,no-resolve
-IP-CIDR,43.160.156.0/24
+IP-CIDR,43.160.156.0/24,no-resolve
 IP-CIDR,43.160.156.23/32,no-resolve
 IP-CIDR6,2402:4E00:1900:1700:0:9554:1AD0:140A/128,no-resolve
 IP-CIDR6,2402:4e00:1020:10fb:0:9466::/112,no-resolve
