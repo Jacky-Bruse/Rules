@@ -1,15 +1,15 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-02-03 05:44:19
+# UPDATED: 2026-02-04 05:42:23
 # DOMAIN: 51
 # DOMAIN-KEYWORD: 7
-# DOMAIN-SUFFIX: 87
+# DOMAIN-SUFFIX: 89
 # IP-ASN: 1
 # IP-CIDR: 3
 # IP-CIDR6: 1
 # OTHER: 2
-# TOTAL: 152
+# TOTAL: 154
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
@@ -109,6 +109,8 @@ DOMAIN-SUFFIX,launchdarkly.com
 DOMAIN-SUFFIX,makersuite.google.com
 DOMAIN-SUFFIX,meta.ai
 DOMAIN-SUFFIX,mistral.ai
+DOMAIN-SUFFIX,notebooklm.google
+DOMAIN-SUFFIX,notebooklm.google.com
 DOMAIN-SUFFIX,nvidia.com
 DOMAIN-SUFFIX,oaistatic.com
 DOMAIN-SUFFIX,oaiusercontent.com
