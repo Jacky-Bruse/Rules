@@ -1,15 +1,15 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-03-11 05:42:45
+# UPDATED: 2026-03-11 14:43:29
 # DOMAIN: 51
 # DOMAIN-KEYWORD: 7
-# DOMAIN-SUFFIX: 89
+# DOMAIN-SUFFIX: 94
 # IP-ASN: 1
 # IP-CIDR: 3
 # IP-CIDR6: 1
 # OTHER: 2
-# TOTAL: 154
+# TOTAL: 159
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
@@ -65,6 +65,8 @@ DOMAIN-SUFFIX,ai.com
 DOMAIN-SUFFIX,algolia.net
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,anyrouter.top
+DOMAIN-SUFFIX,api.anthropic.com
+DOMAIN-SUFFIX,api.openai.com
 DOMAIN-SUFFIX,api.statsig.com
 DOMAIN-SUFFIX,apis.google.com
 DOMAIN-SUFFIX,apple-relay.apple.com,Proxy
@@ -81,6 +83,7 @@ DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,client-api.arkoselabs.com
+DOMAIN-SUFFIX,code.claude.com
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 DOMAIN-SUFFIX,copilot.microsoft.com
 DOMAIN-SUFFIX,cp4.cloudflare.com,Proxy
@@ -121,11 +124,13 @@ DOMAIN-SUFFIX,openaicom.imgix.net
 DOMAIN-SUFFIX,openrouter.ai
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,perplexity.com
+DOMAIN-SUFFIX,platform.claude.com
 DOMAIN-SUFFIX,pplx.ai
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 DOMAIN-SUFFIX,segment.io
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,sora.com
+DOMAIN-SUFFIX,statsig.anthropic.com
 DOMAIN-SUFFIX,stripe.com
 DOMAIN-SUFFIX,together.xyz
 DOMAIN-SUFFIX,trae.ai
