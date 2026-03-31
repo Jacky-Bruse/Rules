@@ -1,7 +1,7 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-03-30 06:26:10
+# UPDATED: 2026-03-31 06:12:45
 # DOMAIN: 51
 # DOMAIN-KEYWORD: 7
 # DOMAIN-SUFFIX: 94
@@ -69,10 +69,10 @@ DOMAIN-SUFFIX,api.anthropic.com
 DOMAIN-SUFFIX,api.openai.com
 DOMAIN-SUFFIX,api.statsig.com
 DOMAIN-SUFFIX,apis.google.com
-DOMAIN-SUFFIX,apple-relay.apple.com,Proxy
-DOMAIN-SUFFIX,apple-relay.cloudflare.com,Proxy
-DOMAIN-SUFFIX,apple-relay.fastly-edge.com,Proxy
-DOMAIN-SUFFIX,apps.mzstatic.com,Proxy
+DOMAIN-SUFFIX,apple-relay.apple.com
+DOMAIN-SUFFIX,apple-relay.cloudflare.com
+DOMAIN-SUFFIX,apple-relay.fastly-edge.com
+DOMAIN-SUFFIX,apps.mzstatic.com
 DOMAIN-SUFFIX,auth0.com
 DOMAIN-SUFFIX,bard.google.com
 DOMAIN-SUFFIX,challenges.cloudflare.com
@@ -86,14 +86,14 @@ DOMAIN-SUFFIX,client-api.arkoselabs.com
 DOMAIN-SUFFIX,code.claude.com
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 DOMAIN-SUFFIX,copilot.microsoft.com
-DOMAIN-SUFFIX,cp4.cloudflare.com,Proxy
+DOMAIN-SUFFIX,cp4.cloudflare.com
 DOMAIN-SUFFIX,cursor.com
 DOMAIN-SUFFIX,cursor.sh
 DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deepmind.google
 DOMAIN-SUFFIX,events.statsigapi.net
 DOMAIN-SUFFIX,featuregates.org
-DOMAIN-SUFFIX,gateway.icloud.com,Proxy
+DOMAIN-SUFFIX,gateway.icloud.com
 DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,generativeai.google
 DOMAIN-SUFFIX,generativelanguage.googleapis.com
@@ -101,8 +101,8 @@ DOMAIN-SUFFIX,githubcopilot.com
 DOMAIN-SUFFIX,grazie.ai
 DOMAIN-SUFFIX,grazie.aws.intellij.net
 DOMAIN-SUFFIX,grok.com
-DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com,Proxy
-DOMAIN-SUFFIX,guzzoni.apple.com,Proxy
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
+DOMAIN-SUFFIX,guzzoni.apple.com
 DOMAIN-SUFFIX,host.livekit.cloud
 DOMAIN-SUFFIX,identrust.com
 DOMAIN-SUFFIX,intercom.io
