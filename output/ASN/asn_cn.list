@@ -1,9 +1,9 @@
 # NAME: asn_cn
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-04-02 06:07:37
-# IP-ASN: 5233
-# TOTAL: 5233
+# UPDATED: 2026-04-03 06:08:20
+# IP-ASN: 5232
+# TOTAL: 5232
 
 IP-ASN,10111,no-resolve
 IP-ASN,10206,no-resolve
@@ -230,7 +230,6 @@ IP-ASN,139099,no-resolve
 IP-ASN,139100,no-resolve
 IP-ASN,139110,no-resolve
 IP-ASN,139112,no-resolve
-IP-ASN,139117,no-resolve
 IP-ASN,139118,no-resolve
 IP-ASN,139122,no-resolve
 IP-ASN,139128,no-resolve
