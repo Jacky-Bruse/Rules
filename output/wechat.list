@@ -1,15 +1,15 @@
 # NAME: wechat
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-05-06 07:31:44
+# UPDATED: 2026-05-07 03:14:56
 # DOMAIN: 15
 # DOMAIN-KEYWORD: 233
-# DOMAIN-SUFFIX: 118
+# DOMAIN-SUFFIX: 123
 # IP-ASN: 1
 # IP-CIDR: 12
 # IP-CIDR6: 123
 # USER-AGENT: 2
-# TOTAL: 504
+# TOTAL: 509
 
 DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net
 DOMAIN,btrace.qq.com
@@ -274,6 +274,7 @@ DOMAIN-SUFFIX,dns.weixin.qq.com.cn
 DOMAIN-SUFFIX,emoji.qpic.cn
 DOMAIN-SUFFIX,extshort.weixin.qq.com
 DOMAIN-SUFFIX,findershort.weixin.qq.com
+DOMAIN-SUFFIX,gtimg.com
 DOMAIN-SUFFIX,hkaxshort.weixin.qq.com
 DOMAIN-SUFFIX,hkdisas.weixin.qq.com
 DOMAIN-SUFFIX,hkextshort.weixin.qq.com
@@ -285,6 +286,7 @@ DOMAIN-SUFFIX,hkshort.pay.weixin.qq.com
 DOMAIN-SUFFIX,hkshort.weixin.qq.com
 DOMAIN-SUFFIX,hkshort6.weixin.qq.com
 DOMAIN-SUFFIX,hksupport.weixin.qq.com
+DOMAIN-SUFFIX,idqqimg.com
 DOMAIN-SUFFIX,indoorroad.map.qq.com
 DOMAIN-SUFFIX,iot-tencent.com
 DOMAIN-SUFFIX,lbs.gtimg.com
@@ -311,6 +313,7 @@ DOMAIN-SUFFIX,nlp.map.qq.com
 DOMAIN-SUFFIX,open.weixin.qq.com
 DOMAIN-SUFFIX,qlogo.cn
 DOMAIN-SUFFIX,qpic.cn
+DOMAIN-SUFFIX,qq.com
 DOMAIN-SUFFIX,quic.weixin.qq.com
 DOMAIN-SUFFIX,res.servicewechat.com
 DOMAIN-SUFFIX,resstatic.servicewechat.com
@@ -348,6 +351,8 @@ DOMAIN-SUFFIX,szquic.weixin.qq.com
 DOMAIN-SUFFIX,szshort.pay.weixin.qq.com
 DOMAIN-SUFFIX,szshort.weixin.qq.com
 DOMAIN-SUFFIX,szsupport.weixin.qq.com
+DOMAIN-SUFFIX,tencent-cloud.net
+DOMAIN-SUFFIX,tencent.com
 DOMAIN-SUFFIX,tencentcs.com
 DOMAIN-SUFFIX,tencentmap.wechat.com
 DOMAIN-SUFFIX,tenpay.com
