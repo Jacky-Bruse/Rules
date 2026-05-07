@@ -136,3 +136,20 @@ DOMAIN-SUFFIX,sgminorshort.wechat.com
 DOMAIN-SUFFIX,dns.wechat.com
 DOMAIN-SUFFIX,myqcloud.com
 DOMAIN-SUFFIX,tencentcs.com
+#20260506 增加
+DOMAIN-SUFFIX,weixin.qq.com
+DOMAIN-SUFFIX,wechat.com
+DOMAIN-SUFFIX,servicewechat.com
+DOMAIN-SUFFIX,tenpay.com
+DOMAIN-SUFFIX,wechatpay.com
+DOMAIN-SUFFIX,weixinbridge.com
+DOMAIN-SUFFIX,tencent.com
+DOMAIN-SUFFIX,tencent-cloud.net
+DOMAIN-SUFFIX,qq.com
+DOMAIN-SUFFIX,qpic.cn
+DOMAIN-SUFFIX,qlogo.cn
+DOMAIN-SUFFIX,gtimg.com
+DOMAIN-SUFFIX,idqqimg.com
+DOMAIN-SUFFIX,myqcloud.com
+DOMAIN-SUFFIX,wxapp.tc.qq.com
+DOMAIN-SUFFIX,vweixinthumb.tc.qq.com
