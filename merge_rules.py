@@ -24,7 +24,9 @@ MAX_WORKERS = 10
 # Request timeout in seconds
 REQUEST_TIMEOUT = 15
 # User-Agent for requests
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+# 使用 clash.meta 标识：部分规则源（如 kelee.one）会对普通浏览器 UA 返回 403，
+# 仅对 clash 客户端 UA 放行；GitHub/ACL4SSR 等不校验 UA，统一使用此值无副作用。
+USER_AGENT = "clash.meta"
 # Retry attempts for failed downloads
 MAX_RETRIES = 3
 # Delay between retries in seconds
