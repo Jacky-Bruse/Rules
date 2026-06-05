@@ -1,18 +1,19 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-06-05 08:39:30
-# DOMAIN: 87
-# DOMAIN-KEYWORD: 7
-# DOMAIN-SUFFIX: 117
+# UPDATED: 2026-06-05 08:41:26
+# DOMAIN: 94
+# DOMAIN-KEYWORD: 8
+# DOMAIN-SUFFIX: 126
 # IP-ASN: 1
 # IP-CIDR: 4
 # IP-CIDR6: 2
-# OTHER: 2
-# TOTAL: 220
+# OTHER: 3
+# TOTAL: 238
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
+DOMAIN,7h1s_rul35et_i5_mad3_by_5ukk4w-ruleset.skk.moe
 DOMAIN,ai-gateway.vercel.sh
 DOMAIN,ai.google.dev
 DOMAIN,aida.googleapis.com
@@ -21,9 +22,13 @@ DOMAIN,aisandbox-pa.googleapis.com
 DOMAIN,aistudio.google.com
 DOMAIN,alkalicore-pa.clients6.google.com
 DOMAIN,alkalimakersuite-pa.clients6.google.com
+DOMAIN,antigravity-unleash.goog
+DOMAIN,antigravity.google
+DOMAIN,api.github.com
 DOMAIN,api.githubcopilot.com
 DOMAIN,api.groq.com
 DOMAIN,api.hyperbolic.xyz
+DOMAIN,api.jetbrains.ai
 DOMAIN,api.together.xyz
 DOMAIN,api.x.ai
 DOMAIN,bard.google.com
@@ -40,6 +45,7 @@ DOMAIN,daily-cloudcode-pa.googleapis.com
 DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
 DOMAIN,deepmind.com
 DOMAIN,deepmind.google
+DOMAIN,gateway.ai.cloudflare.com
 DOMAIN,geller-pa.googleapis.com
 DOMAIN,gemini.google
 DOMAIN,gemini.google.com
@@ -61,6 +67,7 @@ DOMAIN,openaiapi-site.azureedge.net
 DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
 DOMAIN,openaicom.imgix.net
 DOMAIN,openaicomproductionae4b.blob.core.windows.net
+DOMAIN,openrouter.ai
 DOMAIN,pplx-res.cloudinary.com
 DOMAIN,proactivebackend-pa.googleapis.com
 DOMAIN,production-openaicom-storage.azureedge.net
@@ -71,6 +78,7 @@ DOMAIN,sydney.bing.com
 DOMAIN,trae-api-sg.mchost.guru
 DOMAIN,turn.livekit.cloud
 DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
+DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
 DOMAIN-KEYWORD,anthropic
 DOMAIN-KEYWORD,claude
 DOMAIN-KEYWORD,colab
@@ -81,6 +89,7 @@ DOMAIN-KEYWORD,perplexity
 DOMAIN-SUFFIX,88code.org
 DOMAIN-SUFFIX,ai.azure.com
 DOMAIN-SUFFIX,ai.com
+DOMAIN-SUFFIX,aistudio.google.com
 DOMAIN-SUFFIX,algolia.net
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,antigravity-unleash.goog
@@ -108,6 +117,8 @@ DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,client-api.arkoselabs.com
+DOMAIN-SUFFIX,clipdrop.co
+DOMAIN-SUFFIX,cloudcode-pa.googleapis.com
 DOMAIN-SUFFIX,code.claude.com
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 DOMAIN-SUFFIX,copilot.microsoft.com
@@ -117,10 +128,14 @@ DOMAIN-SUFFIX,cursor.com
 DOMAIN-SUFFIX,cursor.sh
 DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deepmind.google
+DOMAIN-SUFFIX,dify.ai
 DOMAIN-SUFFIX,events.statsigapi.net
 DOMAIN-SUFFIX,featuregates.org
 DOMAIN-SUFFIX,fireworks.ai
+DOMAIN-SUFFIX,g.ai
 DOMAIN-SUFFIX,gateway.icloud.com
+DOMAIN-SUFFIX,geller-pa.googleapis.com
+DOMAIN-SUFFIX,gemini.google
 DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,generativeai.google
 DOMAIN-SUFFIX,generativelanguage.googleapis.com
@@ -136,6 +151,7 @@ DOMAIN-SUFFIX,hyperbolic.ai
 DOMAIN-SUFFIX,identrust.com
 DOMAIN-SUFFIX,intercom.io
 DOMAIN-SUFFIX,intercomcdn.com
+DOMAIN-SUFFIX,jasper.ai
 DOMAIN-SUFFIX,jetbrains.ai
 DOMAIN-SUFFIX,jina.ai
 DOMAIN-SUFFIX,kiro.dev
@@ -153,6 +169,7 @@ DOMAIN-SUFFIX,observeit.net
 DOMAIN-SUFFIX,openai.com
 DOMAIN-SUFFIX,openaiapi-site.azureedge.net
 DOMAIN-SUFFIX,openaicom.imgix.net
+DOMAIN-SUFFIX,openart.ai
 DOMAIN-SUFFIX,openrouter.ai
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,perplexity.com
@@ -178,3 +195,4 @@ IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR,24.199.123.28/32,no-resolve
 IP-CIDR,64.23.132.171/32,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
+URL-REGEX,https://www\.google\.com/.*continue=https://gemini\.google\.com.+
