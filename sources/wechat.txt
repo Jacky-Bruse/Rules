@@ -3,3 +3,4 @@ https://github.com/ACL4SSR/ACL4SSR/raw/refs/heads/master/Clash/Ruleset/Wechat.li
 https://github.com/Networkzt/Clash/raw/refs/heads/main/WeChat.list
 https://raw.githubusercontent.com/NobyDa/Script/master/Surge/WeChat.list
 https://github.com/Jacky-Bruse/Rules/raw/refs/heads/main/Rules/WeChat.list
+https://github.com/Moli-X/Tool/raw/X/Loon/Rules/WeChat.list
