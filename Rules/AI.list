@@ -102,3 +102,6 @@ DOMAIN-SUFFIX,antigravity.google
 DOMAIN-SUFFIX,minimax.io
 IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
+DOMAIN-SUFFIX,oaiusercontent.com
+DOMAIN-SUFFIX,oaistatic.com
+DOMAIN-SUFFIX,oaiusercontent.com
