@@ -153,3 +153,7 @@ DOMAIN-SUFFIX,idqqimg.com
 DOMAIN-SUFFIX,myqcloud.com
 DOMAIN-SUFFIX,wxapp.tc.qq.com
 DOMAIN-SUFFIX,vweixinthumb.tc.qq.com
+PROCESS-NAME,com.tencent.mm,DIRECT
+PROCESS-NAME,WeChat.exe,DIRECT
+PROCESS-NAME,WeChatAppEx.exe,DIRECT
+PROCESS-NAME,Weixin.exe,DIRECT
