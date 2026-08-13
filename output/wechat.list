@@ -1,15 +1,16 @@
 # NAME: wechat
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-08-13 06:10:42
+# UPDATED: 2026-08-13 10:29:13
 # DOMAIN: 15
 # DOMAIN-KEYWORD: 233
 # DOMAIN-SUFFIX: 123
 # IP-ASN: 1
 # IP-CIDR: 12
 # IP-CIDR6: 123
+# PROCESS-NAME: 4
 # USER-AGENT: 2
-# TOTAL: 509
+# TOTAL: 513
 
 DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net
 DOMAIN,btrace.qq.com
@@ -518,5 +519,9 @@ IP-CIDR6,240e:f7:4f00:1f10::/60,no-resolve
 IP-CIDR6,240e:f7:a070:100::/60,no-resolve
 IP-CIDR6,240e:ff:9018:100::/60,no-resolve
 IP-CIDR6,240e:ff:f100::/44,no-resolve
+PROCESS-NAME,WeChat.exe,DIRECT
+PROCESS-NAME,WeChatAppEx.exe,DIRECT
+PROCESS-NAME,Weixin.exe,DIRECT
+PROCESS-NAME,com.tencent.mm,DIRECT
 USER-AGENT,MicroMessenger*
 USER-AGENT,WeChat*
