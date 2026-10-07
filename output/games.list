@@ -1,0 +1,54 @@
+# NAME: games
+# AUTHOR: Jacky-Bruse
+# REPO: https://github.com/Jacky-Bruse/Clash_Rules
+# UPDATED: 2026-10-07 09:23:46
+# DOMAIN-SUFFIX: 41
+# IP-CIDR: 1
+# OTHER: 3
+# TOTAL: 45
+
+DOMAIN-SUFFIX,adjust.net.in
+DOMAIN-SUFFIX,adjust.world
+DOMAIN-SUFFIX,android.crashsight.wetest.net
+DOMAIN-SUFFIX,android.googleapis.com
+DOMAIN-SUFFIX,anticheatexpert.com
+DOMAIN-SUFFIX,api.club.gpubgm.com
+DOMAIN-SUFFIX,api.helpshift.com
+DOMAIN-SUFFIX,app.adjust.com
+DOMAIN-SUFFIX,app.adjust.io
+DOMAIN-SUFFIX,appsflyersdk.com
+DOMAIN-SUFFIX,asia.csoversea.mbgame.anticheatexpert.com
+DOMAIN-SUFFIX,asia.ngame.proximabeta.com
+DOMAIN-SUFFIX,cdn.club.gpubgm.com
+DOMAIN-SUFFIX,cloud.gsdk.proximabeta.com
+DOMAIN-SUFFIX,cloud.vmp.onezapp.com
+DOMAIN-SUFFIX,cloudctrl.igamecj.com
+DOMAIN-SUFFIX,dl.gjacky.com
+DOMAIN-SUFFIX,dl.listdl.com
+DOMAIN-SUFFIX,f.totope.com
+DOMAIN-SUFFIX,games.googleapis.com
+DOMAIN-SUFFIX,gameswhitelisted.googleapis.com
+DOMAIN-SUFFIX,gcloud.download.igamecj.com
+DOMAIN-SUFFIX,gjacky.com
+DOMAIN-SUFFIX,googleads.g.doubleclick.net
+DOMAIN-SUFFIX,graph.facebook.com
+DOMAIN-SUFFIX,iegcom.com
+DOMAIN-SUFFIX,ig-us-notice.igamecj.com
+DOMAIN-SUFFIX,ig-us-sdkapi.igamecj.com
+DOMAIN-SUFFIX,igamecj.com
+DOMAIN-SUFFIX,intlgame.com
+DOMAIN-SUFFIX,k.gjacky.com
+DOMAIN-SUFFIX,listdl.com
+DOMAIN-SUFFIX,mgl.lobby.igamecj.com
+DOMAIN-SUFFIX,onezapp.com
+DOMAIN-SUFFIX,proximabeta.com
+DOMAIN-SUFFIX,pubgmobile.com
+DOMAIN-SUFFIX,sg-dr.intlgame.com
+DOMAIN-SUFFIX,sg.tdatamaster.com
+DOMAIN-SUFFIX,tdatamaster.com
+DOMAIN-SUFFIX,totope.bytes.tcdnos.com
+DOMAIN-SUFFIX,totope.hwy.tcdnos.com
+DST-PORT,10012
+DST-PORT,17500
+DST-PORT,8013
+IP-CIDR,119.28.33.29/32,no-resolve
