@@ -2,7 +2,6 @@
 DOMAIN-SUFFIX,sg-dr.intlgame.com
 DOMAIN-SUFFIX,sg.tdatamaster.com
 DOMAIN-SUFFIX,mgl.lobby.igamecj.com
-DOMAIN-SUFFIX,tdatamaster.com
 DOMAIN-SUFFIX,ig-us-sdkapi.igamecj.com
 DOMAIN-SUFFIX,totope.hwy.tcdnos.com
 DOMAIN-SUFFIX,f.totope.com
@@ -36,3 +35,13 @@ DOMAIN-SUFFIX,intlgame.com
 DOMAIN-SUFFIX,iegcom.com
 DOMAIN-SUFFIX,asia.ngame.proximabeta.com
 DOMAIN-SUFFIX,proximabeta.com
+DOMAIN-SUFFIX,api.helpshift.com
+DOMAIN-SUFFIX,sg.tdatamaster.com
+DOMAIN-SUFFIX,cdn.club.gpubgm.com
+#20261007添加
+DOMAIN-SUFFIX,igamecj.com
+DOMAIN-SUFFIX,proximabeta.com
+DOMAIN-SUFFIX,anticheatexpert.com
+DOMAIN-SUFFIX,onezapp.com
+DOMAIN-SUFFIX,gjacky.com
+DOMAIN-SUFFIX,listdl.com
