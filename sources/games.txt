@@ -1,0 +1,2 @@
+https://github.com/Jacky-Bruse/Rules/raw/refs/heads/main/Rules/Games.list
+https://github.com/Jacky-Bruse/GFW_Rules/raw/refs/heads/master/Clash/Rules/Games.list
