@@ -1,15 +1,15 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Clash_Rules
-# UPDATED: 2026-10-07 11:27:15
-# DOMAIN: 94
+# UPDATED: 2026-10-08 05:25:13
+# DOMAIN: 97
 # DOMAIN-KEYWORD: 8
-# DOMAIN-SUFFIX: 128
-# IP-ASN: 1
+# DOMAIN-SUFFIX: 130
+# IP-ASN: 2
 # IP-CIDR: 4
 # IP-CIDR6: 2
 # OTHER: 3
-# TOTAL: 240
+# TOTAL: 246
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
@@ -33,6 +33,7 @@ DOMAIN,api.together.xyz
 DOMAIN,api.x.ai
 DOMAIN,bard.google.com
 DOMAIN,browser-intake-datadoghq.com
+DOMAIN,browser-intake-us5-datadoghq.com
 DOMAIN,cdn.usefathom.com
 DOMAIN,chat.mistral.ai
 DOMAIN,chat.openai.com.cdn.cloudflare.net
@@ -52,6 +53,7 @@ DOMAIN,gemini.google.com
 DOMAIN,generativeai.google
 DOMAIN,generativelanguage.googleapis.com
 DOMAIN,host.livekit.cloud
+DOMAIN,http-intake.logs.us5.datadoghq.com
 DOMAIN,imagine.meta.com
 DOMAIN,integrate.api.nvidia.com
 DOMAIN,jules.google
@@ -73,6 +75,7 @@ DOMAIN,proactivebackend-pa.googleapis.com
 DOMAIN,production-openaicom-storage.azureedge.net
 DOMAIN,robinfrontend-pa.googleapis.com
 DOMAIN,router.huggingface.co
+DOMAIN,servd-anthropic-website.b-cdn.net
 DOMAIN,static.cloudflareinsights.com
 DOMAIN,sydney.bing.com
 DOMAIN,trae-api-sg.mchost.guru
@@ -116,6 +119,8 @@ DOMAIN-SUFFIX,chatgpt.site
 DOMAIN-SUFFIX,clau.de
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,claudemcpclient.com
+DOMAIN-SUFFIX,claudemcpcontent.com
 DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,client-api.arkoselabs.com
 DOMAIN-SUFFIX,clipdrop.co
@@ -192,6 +197,7 @@ DOMAIN-SUFFIX,voyageai.com
 DOMAIN-SUFFIX,x.ai
 DOMAIN-SUFFIX,z.ai
 IP-ASN,20473,no-resolve
+IP-ASN,399358,no-resolve
 IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR,24.199.123.28/32,no-resolve
 IP-CIDR,64.23.132.171/32,no-resolve
