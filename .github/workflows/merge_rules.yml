@@ -32,11 +32,11 @@ jobs:
     steps:
       # Step 1: Check out the repository code
       - name: Check out repository
-        uses: actions/checkout@v4 # Use the latest checkout action
+        uses: actions/checkout@v7
 
       # Step 2: Set up Python environment
       - name: Set up Python
-        uses: actions/setup-python@v5 # Use the latest Python setup action
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11' # Specify desired Python version
           cache: 'pip' # Cache pip dependencies
