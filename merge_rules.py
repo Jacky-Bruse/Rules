@@ -37,6 +37,10 @@ SELF_URL_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+# 用 IP 片段写成的关键字（如 DOMAIN-KEYWORD,101.226.129.）：Surge/Loon 会拿 IP 字符串匹配，
+# mihomo/Clash 中直连 IP 的连接没有域名可匹配，基本不会命中，合并时丢弃。纯数字关键字（如 163）不受影响
+IP_FRAGMENT_KEYWORD_PATTERN = re.compile(r'^DOMAIN-KEYWORD,\d{1,3}(\.\d{1,3}){1,3}\.?$')
+
 # --- Logging Setup ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -352,6 +356,7 @@ def process_source_file(source_file: Path):
     
     # 过滤并规范化规则，确保没有 payload: 行和重复规则（须先于统计，否则头部计数会偏大）
     filtered_rules = set()
+    ip_fragment_keywords = 0
     for rule in all_rules:
         # 跳过 payload: 行
         if rule.strip() == 'payload:':
@@ -367,8 +372,15 @@ def process_source_file(source_file: Path):
         #      IP-CIDR, 1.2.3.4/24, no-resolve -> IP-CIDR,1.2.3.4/24,no-resolve
         cleaned_rule = re.sub(r',\s+', ',', cleaned_rule)
 
+        if IP_FRAGMENT_KEYWORD_PATTERN.match(cleaned_rule):
+            ip_fragment_keywords += 1
+            continue
+
         if cleaned_rule:
             filtered_rules.add(cleaned_rule)
+    
+    if ip_fragment_keywords:
+        logging.info(f"Dropped {ip_fragment_keywords} IP-fragment DOMAIN-KEYWORD rules from {source_file.name}")
     
     logging.info(f"Total unique rules collected for {source_file.name}: {len(filtered_rules)}")
     
