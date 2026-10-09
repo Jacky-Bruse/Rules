@@ -6,10 +6,20 @@ on:
     - cron: '0 5 * * *'
   # Allow running the workflow manually from the Actions tab
   workflow_dispatch:
-  # Run the workflow on pushes to the main branch, but only if files in 'sources/' changed
+  # Run the workflow on pushes to the main branch, only when inputs of the merge change
   push:
     branches:
-      - main # Or your default branch name (e.g., master)
+      - main
+    paths:
+      - 'sources/**'
+      - 'Rules/**' # sources 中引用了本仓库 Rules/ 下的规则
+      - 'merge_rules.py'
+      - '.github/workflows/merge_rules.yml'
+
+# 同一时间只运行一个实例，后触发的排队等待，避免并发推送冲突
+concurrency:
+  group: merge-rules
+  cancel-in-progress: false
 
 # Add permissions to allow the workflow to push to the repository
 permissions:
@@ -31,23 +41,15 @@ jobs:
           python-version: '3.11' # Specify desired Python version
           cache: 'pip' # Cache pip dependencies
 
-      # Step 3: Install dependencies (requests library)
+      # Step 3: Install dependencies
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          # Install only requests as it's the sole dependency
-          pip install requests
-          # If using requirements.txt in the future: pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      # Step 4: Create output directory
-      - name: Create output directory
-        run: mkdir -p output # Create the output directory if it doesn't exist
-
-      # Step 5: Run the merge script
+      # Step 4: Run the merge script
       - name: Run merge script
         run: python merge_rules.py # Ensure this script writes to the 'output' directory
 
-      # Step 6: Commit and push the changes if the merged list was updated
+      # Step 5: Commit and push the changes if the merged list was updated
       - name: Commit and push if changed
         run: |
           git config --global user.name 'github-actions[bot]' # Set committer name
@@ -65,19 +67,15 @@ jobs:
               # Commit if any files have changes
               git commit -m "Update rule lists (`date -u`)" # Commit message with timestamp
               
-              # Add retry logic for push in case of transient network issues
-              retry_count=0
-              max_retries=3
-              until git push || [ $retry_count -eq $max_retries ];
-              do
-                retry_count=$((retry_count+1))
-                echo "Push failed. Retrying ($retry_count/$max_retries)..."
-                sleep 5 # Wait 5 seconds before retrying
+              # 推送失败时先 rebase 到远端最新再重试（期间可能有人推送了 sources/Rules）
+              for i in 1 2 3; do
+                git push && exit 0
+                echo "Push failed. Retrying ($i/3)..."
+                sleep 5
+                git pull --rebase
               done
-              if [ $retry_count -eq $max_retries ]; then
-                echo "Push failed after $max_retries attempts."
-                exit 1 # Fail the workflow if push fails
-              fi
+              echo "Push failed after 3 attempts."
+              exit 1
             fi
           else
             echo "Output directory is empty or doesn't exist. Skipping commit and push."

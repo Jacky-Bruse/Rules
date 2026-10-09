@@ -6,10 +6,12 @@
 
 * 从 `sources/` 目录下的多个文本文件中读取规则列表的 URL。
 * 为每个源文件独立下载和处理 URL 指向的规则内容。
-* 对规则进行自动分类（DOMAIN、DOMAIN-SUFFIX、IP-CIDR 等）。
-* 去除重复的规则和注释行（以 `#`, `!`, `/`, `;`, `[` 开头的行）。
+* 兼容纯文本列表和 YAML `payload:` 格式；规范化规则格式（去掉逗号后的空格）并去重，去除注释行（以 `#`, `!`, `/`, `;`, `[` 开头的行）。
 * 为每个源文件生成对应的规则列表文件到 `output/` 目录（例如 `sources/telegram.txt` 生成 `output/telegram.list`）。
-* 使用 GitHub Actions 自动化此过程，可定时（每天 UTC 0点）或在推送到 `main` 分支时触发。
+* `sources/ASN/` 下的源会额外去掉 `//` 注释并补上 `,no-resolve`，输出到 `output/ASN/`。
+* 某个规则源下载失败时会跳过该源、继续合并其余源，并在运行日志末尾和 GitHub Actions 页面（警告注解）列出失败的 URL；若某个源文件的所有规则源都失败，则保留旧的输出文件。
+* 规则内容无变化时不改写输出文件（不会产生仅更新时间戳的提交）。
+* 使用 GitHub Actions 自动化此过程，每天 UTC 5:00 定时运行，或在 `sources/`、`Rules/`、脚本、工作流有变更推送到 `main` 分支时触发。
 
 ## 文件结构
 
@@ -18,18 +20,16 @@
 ├── .github/
 │   └── workflows/
 │       └── merge_rules.yml  # GitHub Actions 工作流程定义
-├── sources/
-│   ├── twitter.txt        # 存放 Twitter 相关规则列表 URL
-│   ├── ai.txt             # 存放 AI 相关规则列表 URL
-│   ├── telegram.txt       # 存放 Telegram 相关规则列表 URL
-│   ├── youtube.txt        # 存放 YouTube 相关规则列表 URL
-│   └── others.txt         # 存放其他规则列表 URL
-├── output/
-│   ├── twitter.list       # 自动生成的 Twitter 规则列表
-│   ├── ai.list            # 自动生成的 AI 规则列表
-│   ├── telegram.list      # 自动生成的 Telegram 规则列表
-│   ├── youtube.list       # 自动生成的 YouTube 规则列表
-│   └── others.list        # 自动生成的其他规则列表
+├── sources/               # 规则源（每行一个 URL 或一条规则），文件名决定输出文件名
+│   ├── ai.txt / games.txt / telegram.txt / twitter.txt / wechat.txt / youtube.txt
+│   ├── others.txt         # 预留，当前为空（为空时不生成输出）
+│   └── ASN/
+│       └── asn_cn.txt     # 中国 ASN 规则源
+├── output/                # 自动生成，请勿手动修改
+│   ├── ai.list / games.list / telegram.list / twitter.list / wechat.list / youtube.list
+│   └── ASN/
+│       └── asn_cn.list
+├── Rules/                 # 手工维护的规则，部分被 sources/ 引用
 ├── .gitignore             # 指定 Git 忽略的文件
 ├── merge_rules.py         # 执行合并和分类逻辑的 Python 脚本
 ├── requirements.txt       # Python 依赖库列表 (requests)
@@ -40,8 +40,8 @@
 
 1. **克隆仓库**:
    ```bash
-   git clone https://github.com/Jacky-Bruse/Clash_Rules.git
-   cd Clash_Rules
+   git clone https://github.com/Jacky-Bruse/Rules.git
+   cd Rules
    ```
 
 2. **添加/修改规则源**:
@@ -59,7 +59,7 @@
 
 4. **自动化处理**:
    * 当你将更改推送到 `main` 分支后，GitHub Actions 会自动触发执行脚本。
-   * 或者，Actions 也会按照预定计划（每天 UTC 0 点）自动运行。
+   * 或者，Actions 也会按照预定计划（每天 UTC 5:00）自动运行。
    * 如果脚本成功生成了新的规则文件，Actions 会自动将更新后的文件提交回仓库。
 
 5. **手动运行**:
@@ -72,7 +72,7 @@
 你可以通过以下 URL 格式直接访问最新版本的规则文件（以 telegram.list 为例）:
 
 ```
-https://raw.githubusercontent.com/Jacky-Bruse/Clash_Rules/main/output/telegram.list
+https://raw.githubusercontent.com/Jacky-Bruse/Rules/main/output/telegram.list
 ```
 
 ## 规则文件格式
@@ -80,9 +80,9 @@ https://raw.githubusercontent.com/Jacky-Bruse/Clash_Rules/main/output/telegram.l
 生成的规则文件符合标准的 Clash 规则格式，包含以下内容：
 
 ```
-# NAME: Telegram
+# NAME: telegram
 # AUTHOR: Jacky-Bruse
-# REPO: https://github.com/Jacky-Bruse/Clash_Rules
+# REPO: https://github.com/Jacky-Bruse/Rules
 # UPDATED: 2023-04-23 12:34:56
 # DOMAIN: 10
 # DOMAIN-SUFFIX: 20
@@ -123,6 +123,6 @@ IP-CIDR,91.108.8.0/24
 ## 注意事项
 
 * 添加到源文件中的 URL 应该是可公开访问的，并且指向纯文本格式的规则列表。
-* 脚本会自动对规则进行分类，支持的类型包括：DOMAIN, DOMAIN-SUFFIX, DOMAIN-KEYWORD, IP-CIDR, IP-CIDR6, PROCESS-NAME。
-* 如果源规则已经带有类型前缀（如 "DOMAIN:"），脚本会保留该分类；否则，会根据规则的模式自动判断类型。
+* 脚本不会改写规则类型，规则按源中的原样（规范化空格后）输出，因此源规则应带有类型前缀（如 `DOMAIN-SUFFIX,example.com`）。
+* 头部的分类统计按前缀计数（DOMAIN, DOMAIN-SUFFIX, DOMAIN-KEYWORD, IP-CIDR, IP-CIDR6, USER-AGENT, IP-ASN, PROCESS-NAME），其余类型（如 AND、URL-REGEX）计入 OTHER。
 * 每个源文件生成的规则列表是相互独立的，方便用户选择性地使用所需的规则集。 
