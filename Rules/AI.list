@@ -106,25 +106,52 @@ DOMAIN-SUFFIX,oaiusercontent.com
 DOMAIN-SUFFIX,oaistatic.com
 DOMAIN-SUFFIX,oaiusercontent.com
 
-# 官方核心域名Claude
+# ===== Claude 完整分流规则 =====
+
+# 1. Anthropic / Claude 核心域名
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,claude.app
 DOMAIN-SUFFIX,clau.de
+
+# 2. Claude 内容、Artifacts、MCP
 DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,claudemcpcontent.com
-
-# Claude 相关域名
 DOMAIN-SUFFIX,claudemcpclient.com
 
-# Claude CDN 和静态资源
+# 3. Claude 关联 CDN 和静态资源
 DOMAIN,servd-anthropic-website.b-cdn.net
 
-# Claude Code 可选遥测
+# 4. Claude Code 遥测和错误报告
+# 官方确认的精确主机，非必需服务
 DOMAIN,browser-intake-us5-datadoghq.com
 DOMAIN,http-intake.logs.us5.datadoghq.com
 
-# Claude IP / ASN 兜底
+# 5. 其他关联域名（当前未确认必需）
+# 需要时可根据连接日志启用
+# DOMAIN,anthropic.com.cdn.cloudflare.net
+# DOMAIN,anthropic.auth0.com
+# DOMAIN,anthropic-com.ghost.io
+
+# 6. 第三方监控和统计（可选）
+# 属于共享服务，启用可能影响其他应用
+# DOMAIN-SUFFIX,sentry.io
+# DOMAIN-SUFFIX,statsigapi.net
+# DOMAIN,cdn.usefathom.com
+
+# 7. 安全验证与反欺诈（可选）
+# DOMAIN-SUFFIX,sift.com
+# DOMAIN-SUFFIX,siftscience.com
+
+# 8. 客服和第三方组件（可选）
+# DOMAIN-SUFFIX,intercom.io
+# DOMAIN-SUFFIX,intercomcdn.com
+
+# 9. Anthropic IP / ASN 兜底
+# 官方公布的入站 IP 范围
 IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
+
+# Anthropic 自有 ASN
 IP-ASN,399358,no-resolve
