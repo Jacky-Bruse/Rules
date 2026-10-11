@@ -7,6 +7,7 @@
 * 从 `sources/` 目录下的多个文本文件中读取规则列表的 URL。
 * 为每个源文件独立下载和处理 URL 指向的规则内容。
 * 兼容纯文本列表和 YAML `payload:` 格式；规范化规则格式（去掉逗号后的空格）并去重，去除注释行（以 `#`, `!`, `/`, `;`, `[` 开头的行）。
+* 自动去掉已被 `DOMAIN-SUFFIX` 覆盖的 `DOMAIN` / `DOMAIN-SUFFIX` 规则（如有 `DOMAIN-SUFFIX,qq.com` 时丢弃 `DOMAIN-SUFFIX,weixin.qq.com`），匹配结果不变。
 * 为每个源文件生成对应的规则列表文件到 `output/` 目录（例如 `sources/telegram.txt` 生成 `output/telegram.list`）。
 * `sources/ASN/` 下的源会额外去掉 `//` 注释并补上 `,no-resolve`，输出到 `output/ASN/`。
 * 某个规则源下载失败时会跳过该源、继续合并其余源，并在运行日志末尾和 GitHub Actions 页面（警告注解）列出失败的 URL；若某个源文件的所有规则源都失败，则保留旧的输出文件。
@@ -32,6 +33,7 @@
 ├── Rules/                 # 手工维护的规则，部分被 sources/ 引用
 ├── .gitignore             # 指定 Git 忽略的文件
 ├── merge_rules.py         # 执行合并和分类逻辑的 Python 脚本
+├── test_merge_rules.py    # 去冗余逻辑自检（python test_merge_rules.py）
 ├── requirements.txt       # Python 依赖库列表 (requests)
 └── README.md              # 项目说明文件
 ```
