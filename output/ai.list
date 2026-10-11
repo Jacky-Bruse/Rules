@@ -1,15 +1,15 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-10-09 12:51:53
-# DOMAIN: 68
+# UPDATED: 2026-10-11 08:53:59
+# DOMAIN: 35
 # DOMAIN-KEYWORD: 8
-# DOMAIN-SUFFIX: 108
+# DOMAIN-SUFFIX: 103
 # IP-ASN: 2
 # IP-CIDR: 3
 # IP-CIDR6: 1
 # OTHER: 3
-# TOTAL: 193
+# TOTAL: 155
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
@@ -19,59 +19,27 @@ DOMAIN,ai.google.dev
 DOMAIN,aida.googleapis.com
 DOMAIN,aiplatform.googleapis.com
 DOMAIN,aisandbox-pa.googleapis.com
-DOMAIN,aistudio.google.com
 DOMAIN,alkalicore-pa.clients6.google.com
 DOMAIN,alkalimakersuite-pa.clients6.google.com
-DOMAIN,antigravity-unleash.goog
-DOMAIN,antigravity.google
 DOMAIN,api.github.com
-DOMAIN,api.githubcopilot.com
-DOMAIN,api.groq.com
 DOMAIN,api.hyperbolic.xyz
-DOMAIN,api.jetbrains.ai
-DOMAIN,api.together.xyz
-DOMAIN,api.x.ai
-DOMAIN,bard.google.com
 DOMAIN,browser-intake-datadoghq.com
-DOMAIN,browser-intake-us5-datadoghq.com
 DOMAIN,cdn.usefathom.com
-DOMAIN,chat.mistral.ai
 DOMAIN,chat.openai.com.cdn.cloudflare.net
-DOMAIN,chatgpt.livekit.cloud
-DOMAIN,console.groq.com
-DOMAIN,console.mistral.ai
 DOMAIN,copilot-proxy.githubusercontent.com
-DOMAIN,copilot.microsoft.com
 DOMAIN,daily-cloudcode-pa.googleapis.com
 DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
-DOMAIN,deepmind.com
-DOMAIN,deepmind.google
 DOMAIN,gateway.ai.cloudflare.com
-DOMAIN,geller-pa.googleapis.com
-DOMAIN,gemini.google
-DOMAIN,gemini.google.com
-DOMAIN,generativeai.google
-DOMAIN,generativelanguage.googleapis.com
-DOMAIN,host.livekit.cloud
 DOMAIN,http-intake.logs.us5.datadoghq.com
 DOMAIN,imagine.meta.com
-DOMAIN,integrate.api.nvidia.com
 DOMAIN,jules.google
 DOMAIN,jules.google.com
 DOMAIN,labs.google
-DOMAIN,makersuite.google.com
-DOMAIN,models.inference.ai.azure.com
-DOMAIN,notebooklm.google
-DOMAIN,notebooklm.google.com
 DOMAIN,openai-api.arkoselabs.com
 DOMAIN,openai.com.cdn.cloudflare.net
-DOMAIN,openaiapi-site.azureedge.net
 DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
-DOMAIN,openaicom.imgix.net
 DOMAIN,openaicomproductionae4b.blob.core.windows.net
-DOMAIN,openrouter.ai
 DOMAIN,pplx-res.cloudinary.com
-DOMAIN,proactivebackend-pa.googleapis.com
 DOMAIN,production-openaicom-storage.azureedge.net
 DOMAIN,robinfrontend-pa.googleapis.com
 DOMAIN,router.huggingface.co
@@ -79,7 +47,6 @@ DOMAIN,servd-anthropic-website.b-cdn.net
 DOMAIN,static.cloudflareinsights.com
 DOMAIN,sydney.bing.com
 DOMAIN,trae-api-sg.mchost.guru
-DOMAIN,turn.livekit.cloud
 DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
 DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
 DOMAIN-KEYWORD,anthropic
@@ -98,8 +65,6 @@ DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,antigravity-unleash.goog
 DOMAIN-SUFFIX,antigravity.google
 DOMAIN-SUFFIX,anyrouter.top
-DOMAIN-SUFFIX,api.anthropic.com
-DOMAIN-SUFFIX,api.openai.com
 DOMAIN-SUFFIX,api.statsig.com
 DOMAIN-SUFFIX,apis.google.com
 DOMAIN-SUFFIX,apple-relay.akamaized.net
@@ -126,7 +91,6 @@ DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,client-api.arkoselabs.com
 DOMAIN-SUFFIX,clipdrop.co
 DOMAIN-SUFFIX,cloudcode-pa.googleapis.com
-DOMAIN-SUFFIX,code.claude.com
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 DOMAIN-SUFFIX,copilot.microsoft.com
 DOMAIN-SUFFIX,cp4.cloudflare.com
@@ -180,14 +144,12 @@ DOMAIN-SUFFIX,openart.ai
 DOMAIN-SUFFIX,openrouter.ai
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,perplexity.com
-DOMAIN-SUFFIX,platform.claude.com
 DOMAIN-SUFFIX,poe.com
 DOMAIN-SUFFIX,pplx.ai
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 DOMAIN-SUFFIX,segment.io
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,sora.com
-DOMAIN-SUFFIX,statsig.anthropic.com
 DOMAIN-SUFFIX,stripe.com
 DOMAIN-SUFFIX,together.ai
 DOMAIN-SUFFIX,together.xyz

@@ -1,132 +1,29 @@
 # NAME: wechat
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-10-09 13:04:33
-# DOMAIN: 15
-# DOMAIN-SUFFIX: 123
+# UPDATED: 2026-10-11 08:54:00
+# DOMAIN-SUFFIX: 23
 # IP-ASN: 1
 # IP-CIDR: 12
 # IP-CIDR6: 69
 # PROCESS-NAME: 4
 # USER-AGENT: 2
-# TOTAL: 226
+# TOTAL: 111
 
-DOMAIN,apd-pcdnwxlogin.teg.tencent-cloud.net
-DOMAIN,btrace.qq.com
-DOMAIN,dl.wechat.com
-DOMAIN,dldir1.qq.com
-DOMAIN,sglong.wechat.com
-DOMAIN,sgminorshort.wechat.com
-DOMAIN,sgshort.wechat.com
-DOMAIN,slife.xy-asia.com
-DOMAIN,soup.v.qq.com
-DOMAIN,tencentmap.wechat.com
-DOMAIN,vweixinf.tc.qq.com
-DOMAIN,weixin110.qq.com
-DOMAIN,wup.imtt.qq.com
-DOMAIN,wx.tenpay.com
-DOMAIN,wxapp.tc.qq.com
-DOMAIN-SUFFIX,analytics.map.qq.com
-DOMAIN-SUFFIX,apd-pcdnwxlogin.teg.tencent-cloud.net
-DOMAIN-SUFFIX,api.weixin.qq.com
-DOMAIN-SUFFIX,apis.map.qq.com
-DOMAIN-SUFFIX,axshort.weixin.qq.com
-DOMAIN-SUFFIX,btrace.qq.com
-DOMAIN-SUFFIX,c6.y.qq.com
-DOMAIN-SUFFIX,cc.map.qq.com
-DOMAIN-SUFFIX,dl.wechat.com
-DOMAIN-SUFFIX,dldir1.qq.com
-DOMAIN-SUFFIX,dns.wechat.com
 DOMAIN-SUFFIX,dns.weixin.qq.com.cn
-DOMAIN-SUFFIX,emoji.qpic.cn
-DOMAIN-SUFFIX,extshort.weixin.qq.com
-DOMAIN-SUFFIX,findershort.weixin.qq.com
 DOMAIN-SUFFIX,gtimg.com
-DOMAIN-SUFFIX,hkaxshort.weixin.qq.com
-DOMAIN-SUFFIX,hkdisas.weixin.qq.com
-DOMAIN-SUFFIX,hkextshort.weixin.qq.com
-DOMAIN-SUFFIX,hkfindershort.weixin.qq.com
-DOMAIN-SUFFIX,hklong.weixin.qq.com
-DOMAIN-SUFFIX,hkminorshort.weixin.qq.com
-DOMAIN-SUFFIX,hkquic.weixin.qq.com
-DOMAIN-SUFFIX,hkshort.pay.weixin.qq.com
-DOMAIN-SUFFIX,hkshort.weixin.qq.com
-DOMAIN-SUFFIX,hkshort6.weixin.qq.com
-DOMAIN-SUFFIX,hksupport.weixin.qq.com
 DOMAIN-SUFFIX,idqqimg.com
-DOMAIN-SUFFIX,indoorroad.map.qq.com
 DOMAIN-SUFFIX,iot-tencent.com
-DOMAIN-SUFFIX,lbs.gtimg.com
-DOMAIN-SUFFIX,lbs.map.qq.com
-DOMAIN-SUFFIX,long.weixin.qq.com
-DOMAIN-SUFFIX,map.qq.com
-DOMAIN-SUFFIX,minorlong.weixin.qq.com
-DOMAIN-SUFFIX,minorshort.weixin.qq.com
-DOMAIN-SUFFIX,mlaxshort.weixin.qq.com
-DOMAIN-SUFFIX,mldisas.weixin.qq.com
-DOMAIN-SUFFIX,mlextshort.weixin.qq.com
-DOMAIN-SUFFIX,mlfindershort.weixin.qq.com
-DOMAIN-SUFFIX,mllong.weixin.qq.com
-DOMAIN-SUFFIX,mlminorlong.weixin.qq.com
-DOMAIN-SUFFIX,mlminorshort.weixin.qq.com
-DOMAIN-SUFFIX,mlquic.weixin.qq.com
-DOMAIN-SUFFIX,mlshort.pay.weixin.qq.com
-DOMAIN-SUFFIX,mlshort.weixin.qq.com
-DOMAIN-SUFFIX,mlsupport.weixin.qq.com
-DOMAIN-SUFFIX,mmsns.qpic.cn
-DOMAIN-SUFFIX,mp.weixin.qq.com
 DOMAIN-SUFFIX,myqcloud.com
-DOMAIN-SUFFIX,nlp.map.qq.com
-DOMAIN-SUFFIX,open.weixin.qq.com
 DOMAIN-SUFFIX,qlogo.cn
 DOMAIN-SUFFIX,qpic.cn
 DOMAIN-SUFFIX,qq.com
-DOMAIN-SUFFIX,quic.weixin.qq.com
-DOMAIN-SUFFIX,res.servicewechat.com
-DOMAIN-SUFFIX,resstatic.servicewechat.com
-DOMAIN-SUFFIX,rttgps.map.qq.com
 DOMAIN-SUFFIX,servicewechat.com
-DOMAIN-SUFFIX,sgaxshort.wechat.com
-DOMAIN-SUFFIX,sgfindershort.wechat.com
-DOMAIN-SUFFIX,sgilinkshort.wechat.com
-DOMAIN-SUFFIX,sglong.wechat.com
-DOMAIN-SUFFIX,sgminorshort.wechat.com
-DOMAIN-SUFFIX,sgquic.wechat.com
-DOMAIN-SUFFIX,sgshort.pay.wechat.com
-DOMAIN-SUFFIX,sgshort.wechat.com
-DOMAIN-SUFFIX,shdisas.weixin.qq.com
-DOMAIN-SUFFIX,shextshort.weixin.qq.com
-DOMAIN-SUFFIX,shminorlong.weixin.qq.com
-DOMAIN-SUFFIX,shmmsns.qpic.cn
-DOMAIN-SUFFIX,short.pay.weixin.qq.com
-DOMAIN-SUFFIX,short.weixin.qq.com
-DOMAIN-SUFFIX,shp.qlogo.cn
-DOMAIN-SUFFIX,shquic.weixin.qq.com
-DOMAIN-SUFFIX,shshort.pay.weixin.qq.com
 DOMAIN-SUFFIX,slife.xy-asia.com
-DOMAIN-SUFFIX,soup.v.qq.com
-DOMAIN-SUFFIX,support.weixin.qq.com
-DOMAIN-SUFFIX,szaxshort.weixin.qq.com
-DOMAIN-SUFFIX,szdisas.weixin.qq.com
-DOMAIN-SUFFIX,szextshort.weixin.qq.com
-DOMAIN-SUFFIX,szfindershort.weixin.qq.com
-DOMAIN-SUFFIX,szlong.weixin.qq.com
-DOMAIN-SUFFIX,szminorlong.weixin.qq.com
-DOMAIN-SUFFIX,szminorshort.weixin.qq.com
-DOMAIN-SUFFIX,szmmsns.qpic.cn
-DOMAIN-SUFFIX,szquic.weixin.qq.com
-DOMAIN-SUFFIX,szshort.pay.weixin.qq.com
-DOMAIN-SUFFIX,szshort.weixin.qq.com
-DOMAIN-SUFFIX,szsupport.weixin.qq.com
 DOMAIN-SUFFIX,tencent-cloud.net
 DOMAIN-SUFFIX,tencent.com
 DOMAIN-SUFFIX,tencentcs.com
-DOMAIN-SUFFIX,tencentmap.wechat.com
 DOMAIN-SUFFIX,tenpay.com
-DOMAIN-SUFFIX,ue.indoorloc.map.qq.com
-DOMAIN-SUFFIX,up-hl.3g.qq.com
-DOMAIN-SUFFIX,vweixinf.tc.qq.com
-DOMAIN-SUFFIX,vweixinthumb.tc.qq.com
 DOMAIN-SUFFIX,wechat.com
 DOMAIN-SUFFIX,wechatlegal.net
 DOMAIN-SUFFIX,wechatos.net
@@ -134,21 +31,8 @@ DOMAIN-SUFFIX,wechatpay.cn
 DOMAIN-SUFFIX,wechatpay.com
 DOMAIN-SUFFIX,wechatpay.com.hk
 DOMAIN-SUFFIX,weixin.com
-DOMAIN-SUFFIX,weixin.qq.com
-DOMAIN-SUFFIX,weixin110.qq.com
 DOMAIN-SUFFIX,weixinbridge.com
-DOMAIN-SUFFIX,weixinc2c.tc.qq.com
 DOMAIN-SUFFIX,weixinsxy.com
-DOMAIN-SUFFIX,wup.imtt.qq.com
-DOMAIN-SUFFIX,wx.gtimg.com
-DOMAIN-SUFFIX,wx.qq.com
-DOMAIN-SUFFIX,wxapp.tc.qq.com
-DOMAIN-SUFFIX,wximg.qq.com
-DOMAIN-SUFFIX,wxs.qq.com
-DOMAIN-SUFFIX,wxsnsdy.wxs.qq.com
-DOMAIN-SUFFIX,wxsnsdythumb.wxs.qq.com
-DOMAIN-SUFFIX,wxsnsdyvip.wxs.qq.com
-DOMAIN-SUFFIX,yun-hl.3g.qq.com
 IP-ASN,132203,no-resolve
 IP-CIDR,101.32.104.4/32,no-resolve
 IP-CIDR,101.32.104.41/32,no-resolve

@@ -1,17 +1,13 @@
 # NAME: youtube
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-10-09 12:51:55
-# DOMAIN: 3
+# UPDATED: 2026-10-11 08:54:00
 # DOMAIN-KEYWORD: 1
 # DOMAIN-SUFFIX: 179
 # IP-CIDR: 2
 # IP-CIDR6: 1
-# TOTAL: 186
+# TOTAL: 183
 
-DOMAIN,music.youtube.com
-DOMAIN,youtubei.googleapis.com
-DOMAIN,yt3.ggpht.com
 DOMAIN-KEYWORD,youtube
 DOMAIN-SUFFIX,ggpht.cn
 DOMAIN-SUFFIX,ggpht.com
