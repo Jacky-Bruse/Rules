@@ -95,6 +95,22 @@ def download_content(url: str) -> set[str] | None:
     logging.info(f"Successfully downloaded and processed {len(rules)} rules from {url}")
     return rules
 
+def drop_covered_domains(rules: set[str]) -> set[str]:
+    """去掉已被某条 DOMAIN-SUFFIX 覆盖的 DOMAIN / DOMAIN-SUFFIX 规则（匹配结果不变）。
+    例如有 DOMAIN-SUFFIX,qq.com 时，DOMAIN-SUFFIX,weixin.qq.com 和 DOMAIN,btrace.qq.com 都是多余的。"""
+    suffixes = {rule.split(',')[1].lower() for rule in rules if rule.startswith('DOMAIN-SUFFIX,')}
+
+    def is_covered(rule: str) -> bool:
+        rule_type, _, rest = rule.partition(',')
+        if rule_type not in ('DOMAIN', 'DOMAIN-SUFFIX'):
+            return False
+        labels = rest.split(',')[0].lower().split('.')
+        # DOMAIN-SUFFIX 不能被自己覆盖，从上一级开始查；DOMAIN 与同名 DOMAIN-SUFFIX 也算覆盖
+        start = 1 if rule_type == 'DOMAIN-SUFFIX' else 0
+        return any('.'.join(labels[i:]) in suffixes for i in range(start, len(labels)))
+
+    return {rule for rule in rules if not is_covered(rule)}
+
 def write_rule_file(output_file: Path, stats: dict[str, int], rules: set[str]):
     """写入规则文件；除 UPDATED 外内容无变化时跳过，避免产生仅时间戳变化的提交。"""
     header = [
@@ -381,7 +397,12 @@ def process_source_file(source_file: Path):
     
     if ip_fragment_keywords:
         logging.info(f"Dropped {ip_fragment_keywords} IP-fragment DOMAIN-KEYWORD rules from {source_file.name}")
-    
+
+    deduped_rules = drop_covered_domains(filtered_rules)
+    if len(deduped_rules) < len(filtered_rules):
+        logging.info(f"Dropped {len(filtered_rules) - len(deduped_rules)} domain rules covered by DOMAIN-SUFFIX from {source_file.name}")
+    filtered_rules = deduped_rules
+
     logging.info(f"Total unique rules collected for {source_file.name}: {len(filtered_rules)}")
     
     # 没有收集到任何规则（如所有源均下载失败）时保留旧文件
