@@ -1,9 +1,9 @@
 # NAME: asn_cn
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-10-09 12:51:56
-# IP-ASN: 5230
-# TOTAL: 5230
+# UPDATED: 2026-10-17 08:56:58
+# IP-ASN: 5231
+# TOTAL: 5231
 
 IP-ASN,10111,no-resolve
 IP-ASN,10206,no-resolve
@@ -4911,6 +4911,7 @@ IP-ASN,216299,no-resolve
 IP-ASN,218834,no-resolve
 IP-ASN,218883,no-resolve
 IP-ASN,218985,no-resolve
+IP-ASN,219016,no-resolve
 IP-ASN,219078,no-resolve
 IP-ASN,219207,no-resolve
 IP-ASN,219208,no-resolve
