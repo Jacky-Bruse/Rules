@@ -1,21 +1,22 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-10-13 12:24:01
-# DOMAIN: 38
+# UPDATED: 2026-11-16 13:16:28
+# DOMAIN: 40
 # DOMAIN-KEYWORD: 8
 # DOMAIN-SUFFIX: 103
 # IP-ASN: 2
 # IP-CIDR: 3
 # IP-CIDR6: 1
 # OTHER: 3
-# TOTAL: 158
+# TOTAL: 160
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
 DOMAIN,7h15.ru1353t.1s.m4d3.by.5ukk4w.skk.moe
 DOMAIN,ai-gateway.vercel.sh
 DOMAIN,ai.google.dev
+DOMAIN,aicode.googleapis.com
 DOMAIN,aida.googleapis.com
 DOMAIN,aiplatform.googleapis.com
 DOMAIN,aisandbox-pa.googleapis.com
@@ -26,6 +27,7 @@ DOMAIN,api.hyperbolic.xyz
 DOMAIN,browser-intake-datadoghq.com
 DOMAIN,cdn.usefathom.com
 DOMAIN,chat.openai.com.cdn.cloudflare.net
+DOMAIN,cloud.zed.dev
 DOMAIN,copilot-proxy.githubusercontent.com
 DOMAIN,daily-cloudcode-pa.googleapis.com
 DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
