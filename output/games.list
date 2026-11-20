@@ -1,17 +1,16 @@
 # NAME: games
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-10-23 14:28:34
-# DOMAIN-SUFFIX: 27
+# UPDATED: 2026-11-20 13:45:22
+# DOMAIN-SUFFIX: 26
 # IP-CIDR: 1
 # OTHER: 4
-# TOTAL: 32
+# TOTAL: 31
 
 AND,((NETWORK,UDP),(IP-ASN,132203,no-resolve),(NOT,((GEOIP,CN,no-resolve))))
 DOMAIN-SUFFIX,adjust.net.in
 DOMAIN-SUFFIX,adjust.world
 DOMAIN-SUFFIX,android.crashsight.wetest.net
-DOMAIN-SUFFIX,android.googleapis.com
 DOMAIN-SUFFIX,anticheatexpert.com
 DOMAIN-SUFFIX,api.club.gpubgm.com
 DOMAIN-SUFFIX,api.helpshift.com
