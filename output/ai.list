@@ -1,15 +1,15 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-11-19 14:02:31
-# DOMAIN: 41
+# UPDATED: 2026-11-21 00:13:21
+# DOMAIN: 43
 # DOMAIN-KEYWORD: 8
-# DOMAIN-SUFFIX: 103
+# DOMAIN-SUFFIX: 104
 # IP-ASN: 2
-# IP-CIDR: 3
+# IP-CIDR: 4
 # IP-CIDR6: 1
 # OTHER: 3
-# TOTAL: 161
+# TOTAL: 165
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
@@ -32,6 +32,7 @@ DOMAIN,cloud.zed.dev
 DOMAIN,copilot-proxy.githubusercontent.com
 DOMAIN,daily-cloudcode-pa.googleapis.com
 DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
+DOMAIN,fcmtoken.googleapis.com
 DOMAIN,gateway.ai.cloudflare.com
 DOMAIN,http-intake.logs.us5.datadoghq.com
 DOMAIN,imagine.meta.com
@@ -53,6 +54,7 @@ DOMAIN,server.self-serve.windsurf.com
 DOMAIN,static.cloudflareinsights.com
 DOMAIN,sydney.bing.com
 DOMAIN,trae-api-sg.mchost.guru
+DOMAIN,us5.datadoghq.com
 DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
 DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
 DOMAIN-KEYWORD,anthropic
@@ -155,6 +157,7 @@ DOMAIN-SUFFIX,pplx.ai
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 DOMAIN-SUFFIX,segment.io
 DOMAIN-SUFFIX,sentry.io
+DOMAIN-SUFFIX,siftscience.com
 DOMAIN-SUFFIX,sora.com
 DOMAIN-SUFFIX,stripe.com
 DOMAIN-SUFFIX,together.ai
@@ -169,6 +172,7 @@ IP-ASN,20473,no-resolve
 IP-ASN,399358,no-resolve
 IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR,24.199.123.28/32,no-resolve
+IP-CIDR,34.8.0.0/16,no-resolve
 IP-CIDR,64.23.132.171/32,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
 URL-REGEX,https://www\.google\.com/.*continue=https://gemini\.google\.com.+
