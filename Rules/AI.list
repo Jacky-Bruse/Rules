@@ -127,6 +127,7 @@ DOMAIN,servd-anthropic-website.b-cdn.net
 # 官方确认的精确主机，非必需服务
 DOMAIN,browser-intake-us5-datadoghq.com
 DOMAIN,http-intake.logs.us5.datadoghq.com
+DOMAIN,us5.datadoghq.com
 
 # 5. 其他关联域名（当前未确认必需）
 # 需要时可根据连接日志启用
@@ -139,19 +140,28 @@ DOMAIN,http-intake.logs.us5.datadoghq.com
 # DOMAIN-SUFFIX,sentry.io
 # DOMAIN-SUFFIX,statsigapi.net
 # DOMAIN,cdn.usefathom.com
+# Claude 使用的 Sentry 上报主机（o<编号>.ingest.us.sentry.io）
+DOMAIN-SUFFIX,us.sentry.io
 
 # 7. 安全验证与反欺诈（可选）
 # DOMAIN-SUFFIX,sift.com
-# DOMAIN-SUFFIX,siftscience.com
+DOMAIN-SUFFIX,siftscience.com
 
 # 8. 客服和第三方组件（可选）
 # DOMAIN-SUFFIX,intercom.io
 # DOMAIN-SUFFIX,intercomcdn.com
+# Claude 使用的精确主机
+DOMAIN,api-iam.intercom.io
+DOMAIN,nexus-websocket-a.intercom.io
+DOMAIN,r.stripe.com
+DOMAIN,fcmtoken.googleapis.com
 
 # 9. Anthropic IP / ASN 兜底
 # 官方公布的入站 IP 范围
 IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
+# Google Cloud 段（ARIN: Google LLC），非官方公布，按连接日志添加
+IP-CIDR,34.8.0.0/16,no-resolve
 
 # Anthropic 自有 ASN
 IP-ASN,399358,no-resolve
