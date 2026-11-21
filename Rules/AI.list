@@ -146,6 +146,8 @@ DOMAIN-SUFFIX,us.sentry.io
 # 7. 安全验证与反欺诈（可选）
 # DOMAIN-SUFFIX,sift.com
 DOMAIN-SUFFIX,siftscience.com
+# 登录验证码（官方文档要求浏览器可访问 hcaptcha.com 与 *.hcaptcha.com）
+DOMAIN-SUFFIX,hcaptcha.com
 
 # 8. 客服和第三方组件（可选）
 # DOMAIN-SUFFIX,intercom.io
@@ -159,6 +161,7 @@ DOMAIN,fcmtoken.googleapis.com
 # 9. Anthropic IP / ASN 兜底
 # 官方公布的入站 IP 范围
 IP-CIDR,160.79.104.0/23,no-resolve
+IP-CIDR,153.61.224.0/22,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
 # Google Cloud 段（ARIN: Google LLC），非官方公布，按连接日志添加
 IP-CIDR,34.8.0.0/16,no-resolve
