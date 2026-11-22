@@ -106,6 +106,19 @@ DOMAIN-SUFFIX,oaiusercontent.com
 DOMAIN-SUFFIX,oaistatic.com
 DOMAIN-SUFFIX,oaiusercontent.com
 
+# ChatGPT 安卓应用（按包名匹配，仅对能识别进程的客户端生效）
+PROCESS-NAME,com.openai.chatgpt
+
+# ChatGPT 应用内的第三方 SDK（来自连接日志；共享服务，其他应用访问这些域名也会进 AI）
+DOMAIN-SUFFIX,revenuecat.com
+DOMAIN-SUFFIX,datadog.pool.ntp.org
+
+# OpenAI 官方放行清单 help.openai.com/en/articles/9247338
+DOMAIN-SUFFIX,workos.com
+DOMAIN-SUFFIX,workoscdn.com
+DOMAIN,workos.imgix.net
+DOMAIN,rum.browser-intake-datadoghq.com
+
 # ===== Claude 完整分流规则 =====
 
 # 1. Anthropic / Claude 核心域名
@@ -127,6 +140,7 @@ DOMAIN,servd-anthropic-website.b-cdn.net
 # 官方确认的精确主机，非必需服务
 DOMAIN,browser-intake-us5-datadoghq.com
 DOMAIN,http-intake.logs.us5.datadoghq.com
+# 官方文档未列出
 DOMAIN,us5.datadoghq.com
 
 # 5. 其他关联域名（当前未确认必需）
@@ -140,11 +154,12 @@ DOMAIN,us5.datadoghq.com
 # DOMAIN-SUFFIX,sentry.io
 # DOMAIN-SUFFIX,statsigapi.net
 # DOMAIN,cdn.usefathom.com
-# Claude 使用的 Sentry 上报主机（o<编号>.ingest.us.sentry.io）
+# 官方文档未列出
 DOMAIN-SUFFIX,us.sentry.io
 
 # 7. 安全验证与反欺诈（可选）
 # DOMAIN-SUFFIX,sift.com
+# 官方文档未列出
 DOMAIN-SUFFIX,siftscience.com
 # 登录验证码（官方文档要求浏览器可访问 hcaptcha.com 与 *.hcaptcha.com）
 DOMAIN-SUFFIX,hcaptcha.com
@@ -152,19 +167,16 @@ DOMAIN-SUFFIX,hcaptcha.com
 # 8. 客服和第三方组件（可选）
 # DOMAIN-SUFFIX,intercom.io
 # DOMAIN-SUFFIX,intercomcdn.com
-# Claude 使用的精确主机
+# 官方文档未列出
 DOMAIN,api-iam.intercom.io
 DOMAIN,nexus-websocket-a.intercom.io
 DOMAIN,r.stripe.com
-DOMAIN,fcmtoken.googleapis.com
 
 # 9. Anthropic IP / ASN 兜底
 # 官方公布的入站 IP 范围
 IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR,153.61.224.0/22,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
-# Google Cloud 段（ARIN: Google LLC），非官方公布，按连接日志添加
-IP-CIDR,34.8.0.0/16,no-resolve
 
 # Anthropic 自有 ASN
 IP-ASN,399358,no-resolve
