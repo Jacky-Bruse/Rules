@@ -1,15 +1,16 @@
 # NAME: ai
 # AUTHOR: Jacky-Bruse
 # REPO: https://github.com/Jacky-Bruse/Rules
-# UPDATED: 2026-11-21 00:22:41
-# DOMAIN: 43
-# DOMAIN-KEYWORD: 8
-# DOMAIN-SUFFIX: 105
+# UPDATED: 2026-11-22 05:40:04
+# DOMAIN: 47
+# DOMAIN-KEYWORD: 9
+# DOMAIN-SUFFIX: 109
 # IP-ASN: 2
-# IP-CIDR: 5
+# IP-CIDR: 4
 # IP-CIDR6: 1
 # OTHER: 3
-# TOTAL: 167
+# PROCESS-NAME: 1
+# TOTAL: 176
 
 AND,((DOMAIN-KEYWORD,chatgpt-async-webps-prod-),(DOMAIN-SUFFIX,webpubsub.azure.com))
 AND,((DOMAIN-KEYWORD,openaicom-api-),(DOMAIN-SUFFIX,azurefd.net))
@@ -32,14 +33,16 @@ DOMAIN,cloud.zed.dev
 DOMAIN,copilot-proxy.githubusercontent.com
 DOMAIN,daily-cloudcode-pa.googleapis.com
 DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
-DOMAIN,fcmtoken.googleapis.com
 DOMAIN,gateway.ai.cloudflare.com
+DOMAIN,geminiweb-pa.clients.google.com
+DOMAIN,geminiweb-pa.clients6.google.com
 DOMAIN,http-intake.logs.us5.datadoghq.com
 DOMAIN,imagine.meta.com
 DOMAIN,inference.codeium.com
 DOMAIN,jules.google
 DOMAIN,jules.google.com
 DOMAIN,labs.google
+DOMAIN,notebooklm-pa.googleapis.com
 DOMAIN,openai-api.arkoselabs.com
 DOMAIN,openai.com.cdn.cloudflare.net
 DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
@@ -48,6 +51,7 @@ DOMAIN,pplx-res.cloudinary.com
 DOMAIN,production-openaicom-storage.azureedge.net
 DOMAIN,robinfrontend-pa.googleapis.com
 DOMAIN,router.huggingface.co
+DOMAIN,rum.browser-intake-datadoghq.com
 DOMAIN,servd-anthropic-website.b-cdn.net
 DOMAIN,server.codeium.com
 DOMAIN,server.self-serve.windsurf.com
@@ -56,8 +60,10 @@ DOMAIN,sydney.bing.com
 DOMAIN,trae-api-sg.mchost.guru
 DOMAIN,us5.datadoghq.com
 DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
+DOMAIN,workos.imgix.net
 DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
 DOMAIN-KEYWORD,anthropic
+DOMAIN-KEYWORD,antigravity
 DOMAIN-KEYWORD,claude
 DOMAIN-KEYWORD,colab
 DOMAIN-KEYWORD,developerprofiles
@@ -105,6 +111,7 @@ DOMAIN-SUFFIX,cp4.cloudflare.com
 DOMAIN-SUFFIX,crixet.com
 DOMAIN-SUFFIX,cursor.com
 DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,datadog.pool.ntp.org
 DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deepmind.google
 DOMAIN-SUFFIX,dify.ai
@@ -156,6 +163,7 @@ DOMAIN-SUFFIX,perplexity.com
 DOMAIN-SUFFIX,poe.com
 DOMAIN-SUFFIX,pplx.ai
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+DOMAIN-SUFFIX,revenuecat.com
 DOMAIN-SUFFIX,segment.io
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,siftscience.com
@@ -167,6 +175,8 @@ DOMAIN-SUFFIX,tokenflux.ai
 DOMAIN-SUFFIX,trae.ai
 DOMAIN-SUFFIX,turn.livekit.cloud
 DOMAIN-SUFFIX,voyageai.com
+DOMAIN-SUFFIX,workos.com
+DOMAIN-SUFFIX,workoscdn.com
 DOMAIN-SUFFIX,x.ai
 DOMAIN-SUFFIX,z.ai
 IP-ASN,20473,no-resolve
@@ -174,7 +184,7 @@ IP-ASN,399358,no-resolve
 IP-CIDR,153.61.224.0/22,no-resolve
 IP-CIDR,160.79.104.0/23,no-resolve
 IP-CIDR,24.199.123.28/32,no-resolve
-IP-CIDR,34.8.0.0/16,no-resolve
 IP-CIDR,64.23.132.171/32,no-resolve
 IP-CIDR6,2607:6bc0::/48,no-resolve
+PROCESS-NAME,com.openai.chatgpt
 URL-REGEX,https://www\.google\.com/.*continue=https://gemini\.google\.com.+
